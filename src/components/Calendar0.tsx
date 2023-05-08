@@ -57,7 +57,7 @@ const Calendar = () => {
         days[j].id = "disabled0";
         v++;
       } else {
-        days[j].id = "today";
+        days[j].id = "today0";
         let s = v - 1;
         days[day + s].id = "selected0";
         days[j].addEventListener("click", () => {
