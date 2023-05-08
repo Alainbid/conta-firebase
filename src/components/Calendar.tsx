@@ -90,7 +90,7 @@ const Calendar = () => {
 
   return (
     <div>
-      <button id="btn" >Saisir écriture</button>
+      <button id="btn" >Calendrier</button>
       <div className="elegant-calencar">
         <div id="header" className="clearfix">
           <div className="pre-button" onClick={() => preMonth()}>

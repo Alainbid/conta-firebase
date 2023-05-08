@@ -1,0 +1,118 @@
+
+
+.elegant-calencar0 {
+  background: #d3c3db;
+  width: 15em;
+  height: 15.5em;
+  box-shadow: 6px 4px 10px 1px #7a7979;
+  text-align: center;
+  margin: 2em auto;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.clearfix {
+  display: inline-flex;
+  margin-top: 0.1rem;
+}
+
+.pre-button,
+.next-button {
+  font-weight: bold;
+  background: #d0c8d4;
+  color: #f00505;
+  font-size: 1.2rem;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.head-month0 {
+  font-weight: 600;
+  background: #d0c8d4;
+  color: #380236;
+  font-size: 1.2rem;
+  padding: 8px;
+
+}
+
+
+.pre-button:hover,
+.next-button:hover {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+ .pre-button:active,.next-button:active{
+     -webkit-transform: scale(0.7);
+     -ms-transform: scale(0.7);
+     transform: scale(0.7);
+ }
+
+
+ #calendar0{
+
+  display: inline-block;
+  background-color: #d0c8d4;
+ }
+
+
+#calendar0 tr {
+    background: #d0c8d4;
+     height: 1.5em;
+     
+ }
+
+ .tr-cal0 th{
+  
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: #d0c8d4;
+  color: #380236;
+  padding-bottom: 0.1rem;
+ }
+
+
+ .tb-cal0 td{
+  background-color: blueviolet;
+     width: 14%;
+     border-radius:0;
+     cursor: pointer;
+     -webkit-transition:all 0.2s ease-in;
+     transition:all 0.2s ease-in;
+ }
+
+ .tb-cal :hover{
+  cursor: pointer;
+ }
+
+ tbody td:active {
+     -webkit-transform: scale(0.7);
+     -ms-transform: scale(0.7);
+     transform: scale(0.7);
+ }
+
+ #selected0{
+    color: #faf8f8;
+    background-color: #380236;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+ }
+
+ #today0 {
+  font-size: 1.2rem;
+  padding: 2px;
+     background-color: #999499;
+     color: #4f055c;
+    //  font-family: serif;
+     font-style: bold;
+      border-radius: 50%;
+ }
+
+#disabled0 {
+  cursor: default;
+  background: #d0c8d4;
+}

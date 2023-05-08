@@ -3,6 +3,7 @@ import "../styles/pointage.scss";
 // import "../styles/togglebtn.scss";
 import Navbarre from "../components/Navbar";
 import { db } from "./FirebaseFirestore";
+import Calendar0 from "../components/Calendar0";
 
 
 import {
@@ -33,6 +34,7 @@ const Recherche = () => {
   const [somme, setSomme] = useState(0);
   const [letotal,setLetotal] = useState(0);
   const [note,setNote] = useState("");
+  const [nature,setNature] = useState("");
 
   const checkBou = useRef();
   const checkBva = useRef();
@@ -61,6 +63,8 @@ const Recherche = () => {
     if (somme != 0) conditions.push(where("somme", "==", parseFloat(somme)));
 
     if(note != "") conditions.push( where("note" ,"==",note));
+    
+    if(nature != "") conditions.push( where("nature" ,"==",nature));
 
     conditions.push(orderBy("date", "desc"));
     // conditions.push(endAt(dateDebut));
@@ -117,6 +121,10 @@ const Recherche = () => {
     e.target.value === "" ? setNote("") : setNote(e.target.value);
   }
 
+  const modifDepense = (e) => {
+    e.target.value === "" ? setNature("") : setNature(e.target.value);
+  }
+
 
   //lire total de BOURSO
   // const updateTotalBanque = async (total, labanque) => {
@@ -158,6 +166,7 @@ const Recherche = () => {
   return (
     <div>
       <Navbarre />
+      <Calendar0></Calendar0>
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
       <button onClick={getJournal}>lancer la recherche</button>
 
@@ -216,24 +225,31 @@ const Recherche = () => {
       <form>
         <div className="somme-container">
           <input
-            //value={"0"}
             type="number"
             id="somme"
-            // checked={pointe === false}
             onChange={modifSomme}
           ></input>
           <label htmlFor="somme">Montant</label>
         </div>
+        
         <div className="note-container">
           <input
-            //value={"0"}
             type="text"
             id="note"
-            // checked={pointe === false}
             onChange={modifNote}
           ></input>
           <label htmlFor="note">Note</label>
         </div>
+
+        <div className="depense-container">
+          <input
+            type="text"
+            id="depense"
+            onChange={modifDepense}
+          ></input>
+          <label htmlFor="depense">Depense</label>
+        </div>
+
       </form>
       {/* 
       <div className="date-container">
