@@ -63,7 +63,7 @@ const Calendar = () => {
         days[j].addEventListener("click", () => {
           setday(j - s);
           days[j].id = "selected0";
-          document.getElementById('btn')!!.style.display="block"; 
+       //   document.getElementById('btn')!!.style.display="block"; 
         });
       }
     }
