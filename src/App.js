@@ -7,7 +7,8 @@ import NotFound from "./pages/NotFoundPage";
 import Depenses from "./pages/Depenses";
 import Benefs from "./pages/Beneficiaires";
 import Saisie  from "./pages/Saisie.tsx";
-// import Calendar from "./pages/Calendar.tsx"
+//  import Test from './pages/Test';
+ import Recherche from "./pages/Recherche"
 
 const App = () => {
   return (
@@ -19,7 +20,8 @@ const App = () => {
         <Route path="/Depenses" element={<Depenses />}></Route>
         <Route path="/Beneficiaires" element={<Benefs />}></Route>
         <Route path="/Saisie" element={<Saisie />}></Route>
-        {/* <Route path="/Calendar" element={<Calendar />}></Route> */}
+        {/* <Route path="/Test" element={<Test />}></Route> */}
+        <Route path="/Rechercher" element={<Recherche />}></Route>
 
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

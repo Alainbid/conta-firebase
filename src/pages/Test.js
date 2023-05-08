@@ -19,7 +19,7 @@ import {
 
 //console.log("journalCollectionRef.", journalCollectionRef.type);
 
-const Pointage = () => {
+const Test = () => {
   //var journalCollectionRef = collection(db, "cfbjournal");
   const [laListe, setLaListe] = useState([{}]);
   const [isActive] = useState(null|0);
@@ -134,4 +134,4 @@ if (docSnap.exists()) {
   );
 };
 
-export default Pointage;
+export default Test;

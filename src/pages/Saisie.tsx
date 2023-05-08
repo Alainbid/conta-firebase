@@ -6,11 +6,12 @@ import { useForm } from "react-hook-form";
 
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 
-const journalCollectionRef = collection(db, "adebug");
+
 
 const Saisie = () => {
+  const journalCollectionRef = collection(db, "adebug");
   const { register, handleSubmit } = useForm();
-  const [banque, setBanque] = useState("Bourso");
+  const [banque, setBanque] = useState("BOURSO");
   const [menage, setMenage] = useState(true);
   const [mode, setMode] = useState("Visa");
 
@@ -45,13 +46,13 @@ const Saisie = () => {
               <label>
                 <input
                   {...register("banque")}
-                  value="Bourso"
+                  value="BOURSO"
                   type="radio"
-                  checked={banque === "Bourso"}
+                  checked={banque === "BOURSO"}
                   // defaultChecked={true}
                   onChange={modifBanque}
                 ></input>
-                Bourso
+                BOURSO
               </label>
               <label>
                 <input
@@ -129,6 +130,7 @@ const Saisie = () => {
           ></input>
           <label htmlFor="budget">Budget</label>
         </div>
+        
         <input
           {...register("somme")}
           defaultValue={10.11}

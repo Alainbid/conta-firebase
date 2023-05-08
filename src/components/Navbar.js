@@ -15,18 +15,25 @@ const Navbarre = () => {
         {/* <NavLink to="/SignUpPage" className="navlk">
           Sign_UP
         </NavLink> */}
-        <NavLink to="/Depenses" className="navlk">
-          Dépenses
-        </NavLink>
-        <NavLink to="/Beneficiaires" className="navlk">
-         Fournisseurs
-        </NavLink>
+        
         <NavLink to="/Saisie" className="navlk">
-          Saisie d&apos;écritures
+          Saisie
         </NavLink>
         <NavLink to="/Pointage" className="navlk">
           Pointage
         </NavLink>
+        <NavLink to="/Rechercher" className="navlk">
+          Rechercher
+        </NavLink>
+        {/* <NavLink to="/Test" className="navlk">
+          Test
+        </NavLink> */}
+        <NavLink to="/Depenses" className="navlk">
+          Dépenses
+        </NavLink>
+        {/* <NavLink to="/Beneficiaires" className="navlk">
+         Fournisseurs
+        </NavLink> */}
       </div>
     </div>
   );
