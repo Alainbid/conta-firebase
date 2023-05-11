@@ -93,7 +93,7 @@ const Calendar = () => {
       <button id="btn" >Calendrier</button>
       <div className="elegant-calencar">
         <div id="header" className="clearfix">
-          <div className="pre-button" onClick={() => preMonth()}>
+          <div className="pre-button0" onClick={() => preMonth()}>
             {"<"}
           </div>
           <div className="head-info">
@@ -105,7 +105,7 @@ const Calendar = () => {
               {year}
             </div>
           </div>
-          <div className="next-button" onClick={() => nextMonth()}>
+          <div className="next-button0" onClick={() => nextMonth()}>
             {">"}
           </div>
         </div>

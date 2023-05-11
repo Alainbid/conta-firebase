@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/calendar0.scss";
 
-
-
-const Calendar = () => {
+const Calendar0 = () => {
   // const [today,setToday] = useState<Date>( new Date());
   const [today] = useState<Date>(() => new Date());
   const [month, setMonth] = useState(() => today.getMonth());
@@ -15,6 +13,8 @@ const Calendar = () => {
     new Date(year, month, 1).getDay()
   );
   const [day, setday] = useState(() => today!!.getDate());
+  const [selDate, setSelDate] = useState(day + "/" + (month + 1) + "/" + year);
+  // const [selDate,setSelDate] =useState("");
 
   const monthTag = [
     "Jan",
@@ -32,10 +32,10 @@ const Calendar = () => {
   ];
 
   const days = document.getElementsByTagName("td");
-  
-  // console.log("days", days);
-  // console.log("startday", startDay);
-  // console.log("ndays", nDays);
+
+const handleChange:any = () => {
+  setSelDate(day + "/" + (month + 1) + "/" + year);
+}
 
   useEffect(() => {
     for (let k = 0; k < 42; k++) {
@@ -43,7 +43,7 @@ const Calendar = () => {
       days[k].id = "";
       days[k].className = "";
     }
-    // document.getElementById('btn')!!.style.display="none"; 
+    // document.getElementById('btn')!!.style.display="none";
     setnDays(new Date(year, month + 1, 0).getDate());
     setStartDay(new Date(year, month, 1).getDay());
     var n = startDay;
@@ -63,12 +63,14 @@ const Calendar = () => {
         days[j].addEventListener("click", () => {
           setday(j - s);
           days[j].id = "selected0";
-       //   document.getElementById('btn')!!.style.display="block"; 
+          console.log(day, month + 1, year);
+         
         });
       }
     }
-
-  },[year, month, startDay, days, nDays, day]);
+     handleChange(selDate);
+    console.log("calendar 2 seldate", selDate);
+  }, [year, month, startDay, days, nDays, day, selDate]);
 
   const preMonth = () => {
     if (month < 1) {
@@ -91,6 +93,7 @@ const Calendar = () => {
   return (
     <div>
       
+
       <div className="elegant-calencar0">
         <div id="header" className="clearfix">
           <div className="pre-button" onClick={() => preMonth()}>
@@ -98,7 +101,11 @@ const Calendar = () => {
           </div>
           <div className="head-info">
             <div className="head-month0">
-              {day}{"-"}{monthTag[month]}{"-"}{year}
+              {day}
+              {"-"}
+              {monthTag[month]}
+              {"-"}
+              {year}
             </div>
           </div>
           <div className="next-button" onClick={() => nextMonth()}>
@@ -106,8 +113,8 @@ const Calendar = () => {
           </div>
         </div>
         <table id="calendar0">
-
-          <tbody  className="tb-cal0">
+          <h5></h5>
+          <tbody className="tb-cal0">
             <tr className="tr-cal0">
               <td></td>
               <td></td>
@@ -169,4 +176,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export  default Calendar0 ;
