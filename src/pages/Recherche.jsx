@@ -35,17 +35,18 @@ const Recherche = () => {
   const [letotal,setLetotal] = useState(0);
   const [note,setNote] = useState("");
   const [nature,setNature] = useState("");
+  const [debut,setDebut] = useState("01/01/2015");
 
   const checkBou = useRef();
   const checkBva = useRef();
   const checkPointe = useRef();
   const checkMenage = useRef();
 
-  var dateFin = Date(() => new Date()); //en ordre décroissant !!!
-  // console.log("aujourd'hui", dateFin);
-  var dateDebut = dateFin - 3 * 24 * 60 * 60 * 1000;
-  dateFin = 1683123191242;
-  dateDebut = 1680437610191;
+  // var dateFin = Date(() => new Date()); //en ordre décroissant !!!
+  // // console.log("aujourd'hui", dateFin);
+  // var dateDebut = dateFin - 3 * 24 * 60 * 60 * 1000;
+  // dateFin = 1683123191242;
+  // dateDebut = 1680437610191;
 
 
 
@@ -59,7 +60,7 @@ const Recherche = () => {
     if (checkMenage.current.checked) {
       conditions.push(where("menage", "==", menage));
     }
-    conditions.push(where("date", ">=", dateDebut));
+  //  conditions.push(where("date", ">=", dateDebut));
     if (somme != 0) conditions.push(where("somme", "==", parseFloat(somme)));
 
     if(note != "") conditions.push( where("note" ,"==",note));
@@ -125,6 +126,15 @@ const Recherche = () => {
     e.target.value === "" ? setNature("") : setNature(e.target.value);
   }
 
+  const modifDebut = (debut) => {
+     setDebut("02/02/2015");
+    console.log("debut",debut);
+   
+  }
+
+  const modifFin = (e) => {
+    console.log(e);
+  }
 
   //lire total de BOURSO
   // const updateTotalBanque = async (total, labanque) => {
@@ -166,7 +176,7 @@ const Recherche = () => {
   return (
     <div>
       <Navbarre />
-      <Calendar0></Calendar0>
+      <Calendar0 ></Calendar0>
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
       <button onClick={getJournal}>lancer la recherche</button>
 
@@ -241,13 +251,34 @@ const Recherche = () => {
           <label htmlFor="note">Note</label>
         </div>
 
-        <div className="depense-container">
+        <div className="depens-container">
           <input
             type="text"
             id="depense"
             onChange={modifDepense}
           ></input>
           <label htmlFor="depense">Depense</label>
+        </div>
+
+        <div className="debut-container">
+          <input
+            type="text"
+            id="debut"
+            // placeholder="01/01/2015"
+            value={debut}
+            onClick =  { (event) => {
+              event.preventDefault();
+              modifDebut();
+              }}
+          ></input>
+          
+          <input
+            type="text"
+            id="dfin"
+            placeholder="31/12/2050"
+            onChange={modifFin}
+          ></input>
+          
         </div>
 
       </form>
@@ -281,7 +312,7 @@ const Recherche = () => {
             </tr>
           </thead>
           <tbody id="ligne">
-            {laListe.map((undoc, index) => {
+            {laListe.map((undoc,index) => {
               return (
                 <tr
                   className="tr-ligne"
