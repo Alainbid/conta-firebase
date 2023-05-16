@@ -104,9 +104,7 @@ if (docSnap.exists()) {
                     ? { background: 'yellow' }
                     : { background: 'green' }
                 }
-               
                 onClick={() => updatePointage(undoc.id)
-                
                 }
                  >
                   <td style={{ width: 2 + "em" }}>{index + 1}</td>
