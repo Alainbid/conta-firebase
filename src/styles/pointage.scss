@@ -1,51 +1,81 @@
-
-.h2-pointage{
+.h2-pointage {
   display: flex;
   justify-content: center;
   color: rgb(226, 225, 225);
   margin-bottom: 20px;
   font-size: 1.8rem;
 }
-
-
-
-
 .tb-pointage{
-  background-color: #394652;
-  display: flex;
-  justify-content: center;
-  color: rgb(226, 225, 225);
-  margin-bottom: 20px;
-  flex-direction: column;
-  align-items: center;
+  margin-left: 100px;
+  margin-right: 100px;
 }
-
-
-th{
-  font-weight: 500;
-  background-color: #394652;
-  
-}
-
-
-
-#ligne  :hover{
-  // background: rgb(217, 211, 179);
-}
-.tr-ligne{
-  background-color: #394652;
-}
-
-.tr-ligne :hover{
-  cursor: pointer;
- background: grey;
-//  color: black;
-  font-weight: 700;
- 
+th {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: wheat;
+  background-color: #43403d;
+  height: 2em;
+  font-family: monospace;
 }
 
 td{
-  height: 1.8rem;
-  color: burlywood;
-  background-color: #060606;
+  cursor: pointer;
+  height: 2rem;
+  font-size: 1.1rem;
+  color: #fde6cb;
+  font-family: system-ui;
+  background: #090808;
 }
+
+i{
+  background:"aliceblue";
+  color: #c3f88c;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+tr:hover{
+  background-color: rgb(34, 71, 51);
+   cursor: pointer;
+}
+
+
+// tbody{
+//   font-size: 1.2rem;
+// }
+// .tbdy-pointage {
+//   color: rgb(226, 225, 225);
+//   margin-bottom: 20px;
+
+// }
+
+
+// .tbdy-pointage {
+//   font-size: 1.2rem;
+// }
+
+// th { font-size: 1.2rem;
+//   font-weight: 500;
+//   background-color: #394652;
+// }
+
+
+
+// .tr-ligne {
+//   background-color: #394652;
+// }
+
+// .tr-ligne :hover {
+//   cursor: pointer;
+//   background: grey;
+// }
+// .tr-ligne:nth-child(even) {
+//   background-color: #dddddd;
+// }
+
+// td {
+//   font-size: 1.2rem;
+//   height: 1.8rem;
+//   color: burlywood;
+// }
