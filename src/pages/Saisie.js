@@ -7,7 +7,7 @@ import "../styles/saisie.scss";
 
 import { db } from "./FirebaseFirestore";
 import { useForm } from "react-hook-form";
-import { addDoc, Timestamp, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 function Saisie() {
   const journalCollectionRef = collection(db, "adebug");
@@ -15,18 +15,23 @@ function Saisie() {
   const [banque, setBanque] = useState("BOURSO");
   const [menage, setMenage] = useState(true);
   const [mode, setMode] = useState("Visa");
+  const [temps, setTemps] = useState(0);
+  const [somme,setSomme] = useState(0);
  
 
 
   const onSubmit = (data) => {
+    data.somme = somme;
     data.mode = mode;
     data.banque = banque;
     data.menage = menage;
+    data.temps  = temps;
+    data.pointe = false;
     console.log("data", data);
     addDoc(journalCollectionRef, data);
-
-    document.getElementById("saisie-container").style.display = "none";
-    document.getElementById("calencar").style.display = "flex";
+annuler();
+    // document.getElementById("saisie-container").style.display = "none";
+    // document.getElementById("calencar").style.display = "flex";
   };
 
   const handleChange = (e) => {
@@ -35,16 +40,28 @@ function Saisie() {
   const modifBanque = (e) => {
     setBanque(e.target.value);
   };
+
   const modifMenage = (e) => {
     e.target.checked ? setMenage(true) : setMenage(false);
   };
 
+  const modifSomme =(e) => {
+    setSomme (parseFloat (e.target.value));
+  }
+
   const getData = (val) => {
+  setTemps(val);
     let w = new Date(val).toLocaleDateString("fr-FR");
-    console.log("date ", w);
+    console.log("date ", w,val);
     document.getElementById("saisie-container").style.display = "revert";
    
   };
+
+  const annuler = () =>{
+    
+   document.getElementById("saisie-container").style.display = "none";
+   document.getElementById("calencar").style.display = "flex";
+  }
 
   return (
     <div className="app">
@@ -56,20 +73,19 @@ function Saisie() {
        
       ></Calendar>
 
-      <div id="saisie-container">
-        <h1>Saisie d&apos;écritures</h1>
-
+      
+        <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
+<div id="saisie-container">
         <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-          <div className="banque-container">
-            <fieldset>
+          
+            <fieldset {...register("banque")}>
               <div className="banque-container">
                 <label>
                   <input
-                    {...register("banque")}
+                    
                     value="BOURSO"
                     type="radio"
                     checked={banque === "BOURSO"}
-                    // defaultChecked={true}
                     onChange={modifBanque}
                   ></input>
                   BOURSO
@@ -85,7 +101,7 @@ function Saisie() {
                 </label>
               </div>
             </fieldset>
-          </div>
+         
 
           <fieldset {...register("mode")}>
             <div className="mode-container">
@@ -137,8 +153,46 @@ function Saisie() {
                 Cash
               </label>
             </div>
+
+            
           </fieldset>
 
+          <div className="detail-container">
+
+          <label>Montant
+          <input
+            {...register("somme")}
+            onChange={modifSomme}
+            type="text"
+            id="somme"
+          ></input></label>
+          
+          <label>Dépense<input
+            {...register("depense")}
+            defaultValue={"alimentation"}
+            type="text"
+            id="depense"
+            placeholder="Dépenses"
+          ></input></label>
+
+          <label>Fournisseur<input
+            {...register("benef")}
+            defaultValue={"Amamzon"}
+            type="text"
+            id="benef"
+            placeholder="Fournisseur"
+          ></input></label>
+
+          <label>Note<input
+            {...register("note")}
+            defaultValue={"lanote"}
+            type="text"
+            id="note"
+            placeholder="Note"
+          ></input></label> 
+</div>
+          
+         
           <div className="budget-container">
             <input
               {...register("menage")}
@@ -151,42 +205,12 @@ function Saisie() {
             <label htmlFor="budget">Budget</label>
           </div>
 
-          <input
-            {...register("somme")}
-            defaultValue={10.11}
-            type="number"
-            id="somme"
-            placeholder="Montant"
-          ></input>
-          <input
-            {...register("depense")}
-            defaultValue={"alimentation"}
-            type="text"
-            id="depense"
-            placeholder="Dépenses"
-          ></input>
-          <input
-            {...register("benef")}
-            defaultValue={"Amamzon"}
-            type="text"
-            id="benef"
-            placeholder="Fournisseur"
-          ></input>
-          <input
-            {...register("note")}
-            defaultValue={"lanote"}
-            type="text"
-            id="note"
-            placeholder="Note"
-          ></input>
-          <input {...register("pointe")} defaultValue={"false"}></input>
-          <input
-            {...register("temps")}
-            defaultValue={Timestamp.fromDate(new Date()).seconds}
-          ></input>
-          <button type="submit" className="btn btn-primary">
+         <span className="btn-fin"> <button type="submit" className="btn btn-success">
             Valider
           </button>
+          <button type="submit" onClick={annuler} className="btn btn-warning">
+            Annuler
+          </button></span>
         </form>
       </div>
     </div>
