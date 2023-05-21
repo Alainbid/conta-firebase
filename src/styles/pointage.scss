@@ -1,3 +1,12 @@
+#recherche-cont{
+display: block;
+flex-direction: column;
+align-items: center;
+}
+
+#btn-valid{
+  display:none;
+}
 .h2-pointage {
   display: flex;
   justify-content: center;
@@ -6,8 +15,10 @@
   font-size: 1.8rem;
 }
 .tb-pointage{
-  margin-left: 100px;
-  margin-right: 100px;
+  margin :auto;
+  // margin-left: 100px;
+  // margin-right: 100px;
+  min-width: 1110px;
 }
 th {
   font-weight: 400;
@@ -27,12 +38,17 @@ td{
   background: #090808;
 }
 
-i{
+ .pt-total{
   background:"aliceblue";
   color: #c3f88c;
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+}
+
+.r-total{
+  font-size: 1.4rem;
+
 }
 
 tr:hover{

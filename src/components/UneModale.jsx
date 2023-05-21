@@ -3,9 +3,11 @@ import "../styles/modal.scss";
 import PropTypes from 'prop-types'
 
 
+// eslint-disable-next-line react/prop-types
 const UneModale = ({open , onClose}) => {
 
-  UneModale.PropTypes = { open : PropTypes.bool, onClose : PropTypes.bool} ;
+  UneModale.PropTypes = { open : PropTypes.bool, 
+    onClose : PropTypes.bool} ;
   if(!open) return(null);
   const [leTexte, setText] = useState("");
 

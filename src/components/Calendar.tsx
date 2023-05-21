@@ -3,7 +3,11 @@ import "../styles/calendar.scss";
 
 
 
-const Calendar = () => {
+const Calendar = (
+   { sendData , quelMotif, finMotif }:
+   {sendData:Function;quelMotif:string, finMotif:string },
+   ) => {
+ 
   // const [today,setToday] = useState<Date>( new Date());
   const [today] = useState<Date>(() => new Date());
   const [month, setMonth] = useState(() => today.getMonth());
@@ -31,11 +35,12 @@ const Calendar = () => {
     "Dec",
   ];
 
+  
+
+
   const days = document.getElementsByTagName("td");
   
-  // console.log("days", days);
-  // console.log("startday", startDay);
-  // console.log("ndays", nDays);
+if(!open) return null;
 
   useEffect(() => {
     for (let k = 0; k < 42; k++) {
@@ -43,7 +48,7 @@ const Calendar = () => {
       days[k].id = "";
       days[k].className = "";
     }
-    document.getElementById('btn')!!.style.display="none"; 
+    voirCalendar(true);
     setnDays(new Date(year, month + 1, 0).getDate());
     setStartDay(new Date(year, month, 1).getDay());
     var n = startDay;
@@ -63,12 +68,20 @@ const Calendar = () => {
         days[j].addEventListener("click", () => {
           setday(j - s);
           days[j].id = "selected";
-          document.getElementById('btn')!!.style.display="block"; 
+         document.getElementById('btn-valid')!!.style.display="revert"; 
+         voirCalendar(false);
         });
       }
     }
 
   },[year, month, startDay, days, nDays, day]);
+
+const voirCalendar = (open:boolean) => {
+  console.log("open",open);
+  open ? 
+  document.getElementById('calencar')!!.style.display="flex":
+  document.getElementById('calencar')!!.style.display="none";  
+}
 
   const preMonth = () => {
     if (month < 1) {
@@ -87,17 +100,26 @@ const Calendar = () => {
       setMonth(month + 1);
     }
   };
+   
+  const onValid = () => {
+    sendData(toUnixTime(year, month, day));
+    document.getElementById('btn-valid')!!.style.display="none";
+    document.getElementById('calencar')!!.style.display="none";
+    
+  };
+
 
   return (
     <div>
-      <button id="btn" >Calendrier</button>
-      <div className="elegant-calencar">
+      <button id="btn-valid"  onClick={onValid} >
+        {quelMotif}{" "}{day}/{month+1}/{year}{finMotif}</button>
+      <div className="elegant-calencar" id="calencar">
         <div id="header" className="clearfix">
           <div className="pre-button0" onClick={() => preMonth()}>
             {"<"}
           </div>
           <div className="head-info">
-            <div className="head-month">
+            <div className="head-month"  >
               {day}
               {"-"}
               {monthTag[month]}
@@ -184,3 +206,19 @@ const Calendar = () => {
 };
 
 export default Calendar;
+
+
+const toUnixTime = (year:number, month:number, day:number) => {
+  //cette fonction ajoute  heure, min, sec au jour choisi
+  const currDate = new Date().getTime();
+  const date = new Date(Date.UTC(year, month , day));
+  let x = Math.floor(date.getTime()); // en milli secondes
+  let d = currDate % (24 * 60 * 60 * 1000);
+  // let w = new Date(x + d);
+  //console.log("w", w.toLocaleString());
+  if (x > 0) {
+    return (x+d);
+  } else {
+    return null;
+  }
+};

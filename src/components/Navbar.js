@@ -7,7 +7,7 @@ const Navbarre = () => {
     <div className="navbar">
       <div className="navbar_href">
         <NavLink to="/" className="navlk">
-          Acceuil
+          Saisie
         </NavLink>
         {/* <NavLink to="/SignInPage" className="navlk">
           Sign-IN
@@ -16,9 +16,9 @@ const Navbarre = () => {
           Sign_UP
         </NavLink> */}
         
-        <NavLink to="/Saisie" className="navlk">
+        {/* <NavLink to="/Saisie" className="navlk">
           Saisie
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/Pointage" className="navlk">
           Pointage
         </NavLink>

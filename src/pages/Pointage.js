@@ -81,7 +81,7 @@ if (docSnap.exists()) {
     <div>
       <Navbarre />
       <p className="h2-pointage">pointage d&apos;écritures </p>
-      <i style={{ textJustify:"center" }}>Pour pointer faire : Double-click sur le &quot;?&quot; de la colonne P</i>
+      <i className="pt-total" style={{ textJustify:"center" }}>Pour pointer faire : Double-click sur le &quot;?&quot; de la colonne P</i>
       
      
       <div>
@@ -99,7 +99,7 @@ if (docSnap.exists()) {
               <th style={{ width: 12 + "em" }}>Fournisseurs</th>
               <th style={{ width: 16 + "em" }}>Dépenses</th>
               <th style={{ width: 4 + "em" }}>Mode</th>
-              <th style={{ width: 18 + "em" }}>Note</th>
+              <th style={{ width: 12 + "em" }}>Note</th>
              
             </tr>
           </thead>
@@ -110,11 +110,7 @@ if (docSnap.exists()) {
               return (
                 
                 <tr className="tr-ligne" key={undoc.id} 
-                // style={
-                //   (isActive === index)
-                //     ? { background: 'yellow' }
-                //     : { background: 'green' }
-                // }
+           
                 
                  >
                   <td style={{ width: 2 + "em" }}>{index + 1}</td>
@@ -142,7 +138,7 @@ if (docSnap.exists()) {
                   <td style={{ width: 14 + "em" }}>{undoc.benef} </td>
                   <td style={{ width: 16 + "em" }}>{undoc.nature} </td>
                   <td style={{ width: 4 + "em" }}>{undoc.mode} </td>
-                  <td style={{ width: 18 + "em" }}>{undoc.note}</td>
+                  <td style={{ width: 12 + "em" }}>{undoc.note}</td>
                 </tr>
               );
             })}
