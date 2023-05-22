@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import "../styles/pointage.scss";
+import "../styles/recherche.scss";
 // import "../styles/togglebtn.scss";
 import Navbarre from "../components/Navbar";
 import { db } from "./FirebaseFirestore";
@@ -39,11 +39,7 @@ const Recherche = () => {
   const checkPointe = useRef();
   const checkMenage = useRef();
 
-  
-
-
   const getJournal = async () => {
-
     let conditions = [];
     if (banque !== "all") conditions.push(where("banque", "==", banque));
 
@@ -66,7 +62,6 @@ const Recherche = () => {
     conditions.push(limit(100));
 
     //************  QUERY ******************************/
-
 
     let lequery = query(collection(db, "cfbjournal"), ...conditions);
     try {
@@ -129,11 +124,8 @@ const Recherche = () => {
     console.log("w", w);
     document.getElementById("d-debut").innerHTML =
       "Recherche depuis le " + w + " jusqu'à aujourd'hui";
-    document.getElementById("recherche-cont").style={color:"red"};
+    document.getElementById("recherche-cont").style = { color: "red" };
   };
-
-
-
 
   //****************************************************** */
   return (
@@ -144,86 +136,89 @@ const Recherche = () => {
         sendData={getData}
         finMotif={" Valider cette date"}
       />
-    <div  id="recherche-cont">
-      <p className="h2-Recherche">Recherche d&apos;écritures </p>
-      <button onClick={getJournal}>lancer la recherche</button>
+      <div id="recherche-cont">
+        <p className="h2-Recherche">Recherche d&apos;écritures </p>
+       
+        <div >
+          <label  className="bourso-container">
+            <input
+              id="BOURSO"
+              value="BOURSO"
+              type="checkbox"
+              ref={checkBou}
+              onChange={modifBanque}
+            ></input>
+            BOURSO
+          </label>
+       
+          <label  className="bourso-container">
+            <input
+              id="BBVA"
+              value="BBVA"
+              type="checkbox"
+              ref={checkBva}
+              //checked={banque === "BBVA"}
+              onChange={modifBanque}
+            ></input>
+            BBVA
+          </label>
+        </div>
 
-      <div className="bourso-container">
-        <label>
+        <div className="budget-recherche">
+         <label className="bourso-container">
           <input
-            id="BOURSO"
-            value="BOURSO"
+            value={"M"}
             type="checkbox"
-            ref={checkBou}
-            onChange={modifBanque}
+            ref={checkMenage}
+            checked={menage === true}
+            onChange={modifMenage}
           ></input>
-          BOURSO
-        </label>
-      </div>
+         Budget</label>
+        </div>
 
-      <div className="bbva-container">
-        <label>
+        <div className="pointe-container">
+        <label className="bourso-container">
           <input
-            id="BBVA"
-            value="BBVA"
+            value={"M"}
             type="checkbox"
-            ref={checkBva}
-            //checked={banque === "BBVA"}
-            onChange={modifBanque}
+            ref={checkPointe}
+            id="pointe"
+            onChange={modifPointe}
           ></input>
-          BBVA
-        </label>
-      </div>
-
-      <div className="budget-container">
-        <input
-          value={"M"}
-          type="checkbox"
-          ref={checkMenage}
-          checked={menage === true}
-          onChange={modifMenage}
-        ></input>
-        <label htmlFor="budget">Budget</label>
-      </div>
-
-      <div className="pointe-container">
-        <input
-          value={"M"}
-          type="checkbox"
-          ref={checkPointe}
-          id="pointe"
-          // checked={pointe === false}
-          onChange={modifPointe}
-        ></input>
-        <label htmlFor="pointe">NON-Pointé</label>
-      </div>
-
-      <form>
-        <div className="somme-container">
-          <input type="number" id="somme" onChange={modifSomme}></input>
-          <label htmlFor="somme">Montant</label>
+          NON-Pointé</label>
         </div>
 
-        <div className="note-container">
-          <input type="text" id="note" onChange={modifNote}></input>
-          <label htmlFor="note">Note</label>
-        </div>
+        <form className="recherche-form">
+          <div >
+          <label className="label-saisie" >Montant{" "}
+            <input className="input-recherche" type="number" id="somme" onChange={modifSomme}></input>
+            </label>
+          </div>
 
-        <div className="depens-container">
-          <input type="text" id="depense" onChange={modifDepense}></input>
-          <label htmlFor="depense">Depense</label>
-        </div>
+          <div className="note-container">
+          <label  className="label-saisie" >Note{" "}
+            <input className="input-recherche" type="text" id="note" onChange={modifNote}></input>
+            </label>
+          </div>
 
-        <div className="debut-container">
-          <textarea
-            type="text"
-            id="d-debut"
-            // placeholder={debut}
-            // onChange={modifDebut}
-          ></textarea>
-        </div>
-      </form>
-      {/* 
+          <div className="depens-container">
+          <label  className="label-saisie">Depense{" "}
+            <input className="input-recherche" type="text" id="depense" onChange={modifDepense}></input>
+            </label>
+          </div>
+
+          <div className="debut-container">
+          <label  className="label-saisie">Date début{" "}
+            <input className="input-recherche"
+              type="text"
+              id="d-debut"
+            ></input>
+            </label>
+          </div>
+        </form>
+        <button className="lancer" onClick={getJournal}>lancer la recherche</button>
+
+        {/* 
       <div className="date-container">
         <input
           value={"M"}
@@ -234,7 +229,7 @@ const Recherche = () => {
         ></input>
         <label htmlFor="pointe">NON-Pointé</label>
       </div> */}
-
+      </div>
       <div>
         <table className="tb-pointage">
           <thead className="th-Recherche">
@@ -309,7 +304,6 @@ const Recherche = () => {
             })}
           </tbody>
         </table>
-      </div>
       </div>
     </div>
   );

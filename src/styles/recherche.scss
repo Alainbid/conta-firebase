@@ -1,0 +1,78 @@
+#btn-valid {
+  display: none;
+}
+
+#recherche-cont {
+  margin: auto;
+  font-size: 1.3rem;
+  width: 489px;
+  background: #43403d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.h2-Recherche {
+  font-size: 1.5rem;
+  background: #43403d;
+  /* color: red; */
+  /* font-weight: 500; */
+}
+
+.bourso-container {
+  padding: 10px;
+  font-size: 1.3rem;
+  background: #43403d;
+}
+.recherche-form {
+    /* margin-right: 20px; */
+    width: 100%;
+    background-color: #86837d;
+    display: flex;
+    margin-Top: 10px;
+    margin-Bottom: 20px;
+    flex-Direction: column;
+    align-Items: flex-end;
+}
+.label-saisie{
+  padding-top: 8px;
+  padding-right: 31px;
+  /* margin-right: 10px; */
+  /* padding: 8px; */
+  /* margin: 5px; */
+  font-size: 1.2rem;
+  color: #4d3413;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+.input-recherche{
+  background: wheat;
+  color: #060606;
+  border-radius: 10px;
+  border: none;
+}
+
+
+th {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: wheat;
+  background-color: #43403d;
+  height: 2em;
+  font-family: monospace;
+}
+
+td {
+  cursor: pointer;
+  height: 2rem;
+  font-size: 1.1rem;
+  color: #fde6cb;
+  font-family: system-ui;
+  background: #090808;
+}
+
+.r-total {
+  font-size: 1.4rem;
+}

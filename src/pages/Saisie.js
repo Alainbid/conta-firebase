@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Navbarre from "../components/Navbar";
-//import "../styles/home.scss";
 import Calendar from "../components/Calendar.tsx";
 import "../styles/app.scss";
 import "../styles/saisie.scss";
@@ -16,22 +15,18 @@ function Saisie() {
   const [menage, setMenage] = useState(true);
   const [mode, setMode] = useState("Visa");
   const [temps, setTemps] = useState(0);
-  const [somme,setSomme] = useState(0);
- 
-
+  const [somme, setSomme] = useState(0);
 
   const onSubmit = (data) => {
     data.somme = somme;
     data.mode = mode;
     data.banque = banque;
     data.menage = menage;
-    data.temps  = temps;
+    data.temps = temps;
     data.pointe = false;
     console.log("data", data);
     addDoc(journalCollectionRef, data);
-annuler();
-    // document.getElementById("saisie-container").style.display = "none";
-    // document.getElementById("calencar").style.display = "flex";
+    annuler();
   };
 
   const handleChange = (e) => {
@@ -45,23 +40,21 @@ annuler();
     e.target.checked ? setMenage(true) : setMenage(false);
   };
 
-  const modifSomme =(e) => {
-    setSomme (parseFloat (e.target.value));
-  }
-
-  const getData = (val) => {
-  setTemps(val);
-    let w = new Date(val).toLocaleDateString("fr-FR");
-    console.log("date ", w,val);
-    document.getElementById("saisie-container").style.display = "revert";
-   
+  const modifSomme = (e) => {
+    setSomme(parseFloat(e.target.value));
   };
 
-  const annuler = () =>{
-    
-   document.getElementById("saisie-container").style.display = "none";
-   document.getElementById("calencar").style.display = "flex";
-  }
+  const getData = (val) => {
+    setTemps(val);
+    let w = new Date(val).toLocaleDateString("fr-FR");
+    console.log("date ", w, val);
+    document.getElementById("saisie-container").style.display = "revert";
+  };
+
+  const annuler = () => {
+    document.getElementById("saisie-container").style.display = "none";
+    document.getElementById("calencar").style.display = "flex";
+  };
 
   return (
     <div className="app">
@@ -70,42 +63,37 @@ annuler();
         quelMotif={"Nouvelle écriture du :"}
         sendData={getData}
         finMotif={" Validez "}
-       
       ></Calendar>
 
-      
-        <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
-<div id="saisie-container">
+      <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
+      <div id="saisie-container">
         <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-          
-            <fieldset {...register("banque")}>
-              <div className="banque-container">
-                <label>
-                  <input
-                    
-                    value="BOURSO"
-                    type="radio"
-                    checked={banque === "BOURSO"}
-                    onChange={modifBanque}
-                  ></input>
-                  BOURSO
-                </label>
-                <label>
-                  <input
-                    value="BBVA"
-                    type="radio"
-                    checked={banque === "BBVA"}
-                    onChange={modifBanque}
-                  ></input>
-                  BBVA
-                </label>
-              </div>
-            </fieldset>
-         
+          <fieldset className="fdset-saisie" {...register("banque")}>
+            <div className="banque-container">
+              <label className="saisie-radio">
+                <input
+                  value="BOURSO"
+                  type="radio"
+                  checked={banque === "BOURSO"}
+                  onChange={modifBanque}
+                ></input>
+                BOURSO
+              </label>
+              <label  className="saisie-radio">
+                <input
+                  value="BBVA"
+                  type="radio"
+                  checked={banque === "BBVA"}
+                  onChange={modifBanque}
+                ></input>
+                BBVA
+              </label >
+            </div>
+          </fieldset >
 
-          <fieldset {...register("mode")}>
+          <fieldset  className="fdset-saisie" {...register("mode")}>
             <div className="mode-container">
-              <label>
+              <label   className="saisie-radio">
                 <input
                   value="Visa"
                   type="radio"
@@ -117,7 +105,7 @@ annuler();
                 Visa
               </label>
 
-              <label>
+              <label   className="saisie-radio">
                 <input
                   value="chèque"
                   type="radio"
@@ -129,7 +117,7 @@ annuler();
                 Chèque
               </label>
 
-              <label>
+              <label   className="saisie-radio">
                 <input
                   value="Virnt"
                   type="radio"
@@ -141,7 +129,7 @@ annuler();
                 Virement
               </label>
 
-              <label>
+              <label   className="saisie-radio">
                 <input
                   value="Cash"
                   type="radio"
@@ -153,47 +141,56 @@ annuler();
                 Cash
               </label>
             </div>
-
-            
           </fieldset>
 
           <div className="detail-container">
+            <label className="label-saisie">
+              Montant
+              <input className="input-saisie"
+                {...register("somme")}
+                onChange={modifSomme}
+                type="text"
+                id="somme"
+                value={somme}
+              ></input>
+            </label>
 
-          <label>Montant
-          <input
-            {...register("somme")}
-            onChange={modifSomme}
-            type="text"
-            id="somme"
-          ></input></label>
-          
-          <label>Dépense<input
-            {...register("depense")}
-            defaultValue={"alimentation"}
-            type="text"
-            id="depense"
-            placeholder="Dépenses"
-          ></input></label>
+            <label  className="label-saisie">
+              Dépense
+              <input className="input-saisie"
+                {...register("depense")}
+                defaultValue={"alimentation"}
+                type="text"
+                id="depense"
+                placeholder="Dépenses"
+              ></input>
+            </label>
 
-          <label>Fournisseur<input
-            {...register("benef")}
-            defaultValue={"Amamzon"}
-            type="text"
-            id="benef"
-            placeholder="Fournisseur"
-          ></input></label>
+            <label  className="label-saisie">
+              Fournisseur
+              <input className="input-saisie"
+                {...register("benef")}
+                defaultValue={"Amamzon"}
+                type="text"
+                id="benef"
+                placeholder="Fournisseur"
+              ></input>
+            </label>
 
-          <label>Note<input
-            {...register("note")}
-            defaultValue={"lanote"}
-            type="text"
-            id="note"
-            placeholder="Note"
-          ></input></label> 
-</div>
-          
-         
+            <label  className="label-saisie">
+              Note
+              <input className="input-saisie"
+                {...register("note")}
+                defaultValue={"lanote"}
+                type="text"
+                id="note"
+                placeholder="Note"
+              ></input>
+            </label>
+          </div>
+
           <div className="budget-container">
+           <label   className="saisie-radio">Budget
             <input
               {...register("menage")}
               value={"M"}
@@ -202,15 +199,18 @@ annuler();
               checked={menage === true}
               onChange={modifMenage}
             ></input>
-            <label htmlFor="budget">Budget</label>
+             </label>
           </div>
 
-         <span className="btn-fin"> <button type="submit" className="btn btn-success">
-            Valider
-          </button>
-          <button type="submit" onClick={annuler} className="btn btn-warning">
-            Annuler
-          </button></span>
+          <span className="btn-fin">
+            {" "}
+            <button type="submit" className="btn btn-success">
+              Valider
+            </button>
+            <button type="submit" onClick={annuler} className="btn btn-warning">
+              Annuler
+            </button>
+          </span>
         </form>
       </div>
     </div>
