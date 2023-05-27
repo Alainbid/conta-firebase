@@ -15,17 +15,20 @@ function Saisie() {
   const [menage, setMenage] = useState(true);
   const [mode, setMode] = useState("Visa");
   const [temps, setTemps] = useState(0);
-  const [somme, setSomme] = useState(0);
+  const [somme, setSomme] = useState("");
 
   const onSubmit = (data) => {
-    data.somme = somme;
-    data.mode = mode;
-    data.banque = banque;
-    data.menage = menage;
-    data.temps = temps;
-    data.pointe = false;
-    console.log("data", data);
-    addDoc(journalCollectionRef, data);
+    if (somme != "") {
+      data.somme = somme;
+      data.mode = mode;
+      data.banque = banque;
+      data.menage = menage;
+      data.temps = temps;
+      data.pointe = false;
+      data.date = temps;
+      console.log("data", data);
+      addDoc(journalCollectionRef, data);
+    }
     annuler();
   };
 
@@ -44,6 +47,8 @@ function Saisie() {
     setSomme(parseFloat(e.target.value));
   };
 
+
+
   const getData = (val) => {
     setTemps(val);
     let w = new Date(val).toLocaleDateString("fr-FR");
@@ -52,9 +57,21 @@ function Saisie() {
   };
 
   const annuler = () => {
+   setSomme("");
+    document.getElementById("somme").value="";
+    document.getElementById("depense").value="";
+    document.getElementById("benef").value="";
+    document.getElementById("note").value="";
+    setBanque("BOURSO");
+    setMode("Visa");
+    setMenage(true);
+    
+
     document.getElementById("saisie-container").style.display = "none";
     document.getElementById("calencar").style.display = "flex";
   };
+
+
 
   return (
     <div className="app">
@@ -79,7 +96,7 @@ function Saisie() {
                 ></input>
                 BOURSO
               </label>
-              <label  className="saisie-radio">
+              <label className="saisie-radio">
                 <input
                   value="BBVA"
                   type="radio"
@@ -87,13 +104,13 @@ function Saisie() {
                   onChange={modifBanque}
                 ></input>
                 BBVA
-              </label >
+              </label>
             </div>
-          </fieldset >
+          </fieldset>
 
-          <fieldset  className="fdset-saisie" {...register("mode")}>
+          <fieldset className="fdset-saisie" {...register("mode")}>
             <div className="mode-container">
-              <label   className="saisie-radio">
+              <label className="saisie-radio">
                 <input
                   value="Visa"
                   type="radio"
@@ -105,7 +122,7 @@ function Saisie() {
                 Visa
               </label>
 
-              <label   className="saisie-radio">
+              <label className="saisie-radio">
                 <input
                   value="chèque"
                   type="radio"
@@ -117,7 +134,7 @@ function Saisie() {
                 Chèque
               </label>
 
-              <label   className="saisie-radio">
+              <label className="saisie-radio">
                 <input
                   value="Virnt"
                   type="radio"
@@ -129,7 +146,7 @@ function Saisie() {
                 Virement
               </label>
 
-              <label   className="saisie-radio">
+              <label className="saisie-radio">
                 <input
                   value="Cash"
                   type="radio"
@@ -146,60 +163,65 @@ function Saisie() {
           <div className="detail-container">
             <label className="label-saisie">
               Montant
-              <input className="input-saisie"
+              <input
+                className="input-saisie"
                 {...register("somme")}
                 onChange={modifSomme}
                 type="text"
                 id="somme"
-                value={somme}
+                // required={true}
               ></input>
             </label>
 
-            <label  className="label-saisie">
+            <label className="label-saisie">
               Dépense
-              <input className="input-saisie"
+              <input
+                className="input-saisie"
                 {...register("depense")}
-                defaultValue={"alimentation"}
+                // defaultValue={"Alimentation"}
                 type="text"
                 id="depense"
-                placeholder="Dépenses"
+                // required={true}
+                // placeholder="Nature dépense"
+                
               ></input>
             </label>
 
-            <label  className="label-saisie">
+            <label className="label-saisie">
               Fournisseur
-              <input className="input-saisie"
+              <input
+                className="input-saisie"
                 {...register("benef")}
-                defaultValue={"Amamzon"}
                 type="text"
                 id="benef"
-                placeholder="Fournisseur"
+                // required={true}
               ></input>
             </label>
 
-            <label  className="label-saisie">
+            <label className="label-saisie">
               Note
-              <input className="input-saisie"
+              <input
+                className="input-saisie"
                 {...register("note")}
-                defaultValue={"lanote"}
                 type="text"
                 id="note"
-                placeholder="Note"
+                placeholder="..."
               ></input>
             </label>
           </div>
 
           <div className="budget-container">
-           <label   className="saisie-radio">Budget
-            <input
-              {...register("menage")}
-              value={"M"}
-              type="checkbox"
-              id="budget"
-              checked={menage === true}
-              onChange={modifMenage}
-            ></input>
-             </label>
+            <label className="saisie-radio">
+              Budget
+              <input
+                {...register("menage")}
+                value={"M"}
+                type="checkbox"
+                id="budget"
+                checked={menage === true}
+                onChange={modifMenage}
+              ></input>
+            </label>
           </div>
 
           <span className="btn-fin">
@@ -207,7 +229,7 @@ function Saisie() {
             <button type="submit" className="btn btn-success">
               Valider
             </button>
-            <button type="submit" onClick={annuler} className="btn btn-warning">
+            <button onClick={annuler} className="btn btn-warning">
               Annuler
             </button>
           </span>

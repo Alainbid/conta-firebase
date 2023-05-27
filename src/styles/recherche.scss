@@ -3,11 +3,13 @@
 }
 
 #recherche-cont {
+  z-index: -100;
+ // display:none;
   margin: auto;
   font-size: 1.3rem;
   width: 489px;
   background: #43403d;
-  display: flex;
+   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 20px;

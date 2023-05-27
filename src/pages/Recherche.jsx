@@ -118,12 +118,13 @@ const Recherche = () => {
   };
 
   const getData = (val) => {
+    document.getElementById("recherche-cont").style = {dislay:"block" };
     console.log("getdata", val);
     setDebut(val);
     let w = new Date(val).toLocaleDateString("fr-FR");
     console.log("w", w);
-    document.getElementById("d-debut").innerHTML =
-      "Recherche depuis le " + w + " jusqu'à aujourd'hui";
+    document.getElementById("d-debut").value =
+      "le " + w ;
     document.getElementById("recherche-cont").style = { color: "red" };
   };
 

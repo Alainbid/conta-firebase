@@ -77,7 +77,7 @@ if(!open) return null;
   },[year, month, startDay, days, nDays, day]);
 
 const voirCalendar = (open:boolean) => {
-  console.log("open",open);
+  //console.log("open",open);
   open ? 
   document.getElementById('calencar')!!.style.display="flex":
   document.getElementById('calencar')!!.style.display="none";  
