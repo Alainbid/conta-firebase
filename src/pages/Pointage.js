@@ -90,7 +90,7 @@ const Pointage = () => {
       <Navbarre />
       <p className="h2-pointage">pointage d&apos;écritures </p>
 
-      <div>
+      <div className="point-container">
         <label className="bourso-container">
           <input
             id="BOURSO"

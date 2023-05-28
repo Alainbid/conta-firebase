@@ -1,27 +1,30 @@
 #btn-valid {
   display: none;
 }
-
+.h2-Recherche {
+  display: flex;
+  /* margin: auto; */
+  font-size: 2rem;
+  background: #28272d;
+  /* color: red; */
+  /* font-weight: 500; */
+  justify-content: center;
+}
 #recherche-cont {
   z-index: -100;
- // display:none;
+  display:none;
   margin: auto;
   font-size: 1.3rem;
   width: 489px;
   background: #43403d;
-   display: flex;
-  flex-direction: column;
+   //display: flex;
+ flex-direction: column;
   align-items: center;
   border-radius: 20px;
   margin-bottom: 20px;
 }
 
-.h2-Recherche {
-  font-size: 1.5rem;
-  background: #43403d;
-  /* color: red; */
-  /* font-weight: 500; */
-}
+
 
 .bourso-container {
   padding: 10px;
