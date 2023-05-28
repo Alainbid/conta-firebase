@@ -105,7 +105,6 @@ const voirCalendar = (open:boolean) => {
     sendData(toUnixTime(year, month, day));
     document.getElementById('btn-valid')!!.style.display="none";
     document.getElementById('calencar')!!.style.display="none";
-    
   };
 
 
