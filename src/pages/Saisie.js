@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Navbarre from "../components/Navbar";
 import Calendar from "../components/Calendar.tsx";
 import "../styles/app.scss";
@@ -9,16 +9,20 @@ import { useForm } from "react-hook-form";
 import { addDoc, collection } from "firebase/firestore";
 
 function Saisie() {
-  const journalCollectionRef = collection(db, "adebug");
+  const journalCollectionRef = collection(db, "cfbjournal");
   const { register, handleSubmit } = useForm();
   const [banque, setBanque] = useState("BOURSO");
   const [menage, setMenage] = useState(true);
   const [mode, setMode] = useState("Visa");
   const [temps, setTemps] = useState(0);
   const [somme, setSomme] = useState("");
+  const [navHidden, setNavHidden] = useState(true);
 
   const onSubmit = (data) => {
     if (somme != "") {
+      
+      data.new = false;
+      data.numero="";
       data.somme = somme;
       data.mode = mode;
       data.banque = banque;
@@ -54,35 +58,38 @@ function Saisie() {
     let w = new Date(val).toLocaleDateString("fr-FR");
     console.log("date ", w, val);
     document.getElementById("saisie-container").style.display = "revert";
+    setNavHidden(false);
   };
 
   const annuler = () => {
    setSomme("");
     document.getElementById("somme").value="";
-    document.getElementById("depense").value="";
+    document.getElementById("nature").value="";
     document.getElementById("benef").value="";
     document.getElementById("note").value="";
     setBanque("BOURSO");
     setMode("Visa");
     setMenage(true);
-    
+       setNavHidden(true);
 
     document.getElementById("saisie-container").style.display = "none";
     document.getElementById("calencar").style.display = "flex";
+ 
   };
 
 
 
   return (
-    <div className="app">
-      <Navbarre />
-      <Calendar
+    <div id="app">
+      {navHidden ?<Navbarre></Navbarre> : null}
+   
+
+      <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
+         <Calendar
         quelMotif={"Nouvelle écriture du :"}
         sendData={getData}
         finMotif={" Validez "}
       ></Calendar>
-
-      <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
       <div id="saisie-container">
         <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="fdset-saisie" {...register("banque")}>
@@ -177,13 +184,9 @@ function Saisie() {
               Dépense
               <input
                 className="input-saisie"
-                {...register("depense")}
-                // defaultValue={"Alimentation"}
+                {...register("nature")}
                 type="text"
-                id="depense"
-                // required={true}
-                // placeholder="Nature dépense"
-                
+                id="nature"                
               ></input>
             </label>
 

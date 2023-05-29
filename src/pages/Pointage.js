@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/pointage.scss";
 import "../styles/togglebtn.scss";
 import Navbarre from "../components/Navbar";
@@ -14,15 +14,15 @@ import {
   where,
   updateDoc,
 } from "firebase/firestore";
+import { Button } from "react-bootstrap";
 
 //console.log("journalCollectionRef.", journalCollectionRef.type);
 
 const Pointage = () => {
   //var journalCollectionRef = collection(db, "cfbjournal");
   const [laListe, setLaListe] = useState([{}]);
-  //const [banque, setBanque] = useState("");
-  const checkBou = useRef();
-  const checkBva = useRef();
+  const [banque, setBanque] = useState("");
+
   // const [isActive] = useState(null|0);
   const [letotal, setLeTotal] = useState(0.0);
   useEffect(() => {
@@ -32,10 +32,7 @@ const Pointage = () => {
 
   const getJournal = async () => {
     let conditions = [];
-    if (!checkBou.current.checked && !checkBva.current.checked) {conditions.push(where("banque", "==","*"))}
-    else if (checkBou.current.checked) {conditions.push(where("banque", "==", "BOURSO"))}
-    else if(checkBva.current.checked) {conditions.push(where("banque", "==", "BBVA"))}
-    else { conditions.push(where("pointe", "==", false))}
+    (banque != null) ? conditions.push(where("banque", "==", banque)): null;
     conditions.push(where("pointe", "==", false));
     conditions.push(orderBy("date", "desc"));
     let lequery = query(collection(db, "cfbjournal"), ...conditions);
@@ -72,33 +69,31 @@ const Pointage = () => {
     if (vam) return vam.toFixed(2);
   };
 
-  const modifBanque = () => {
-    // let bso = checkBou.current.checked;
-    // let bva = checkBva.current.checked;
-    // console.log("bso =", bso, "bbva =", bva);
-    
-    // (bso && !bva)?      setBanque("BOURSO") :setBanque("X");
+  const modifBanque = (e) => {
+   if((e.target.id === "BOURSO") && e.target.checked )
+      setBanque("BOURSO");
+   if((e.target.id === "BBVA") && e.target.checked )
+      setBanque("BBVA");
+    // console.log("banque =",banque );
    
-    // (!bso && bva) ?    setBanque("BBVA"):setBanque("X");
-   
-    // console.log("banque =", banque);
-    getJournal();
   };
+
 
   return (
     <div>
       <Navbarre />
       <p className="h2-pointage">pointage d&apos;écritures </p>
-
+{/* button invisible rajouté pour permettre la majour de la banque */}
+<Button onClick={getJournal()}  style={{ display:"none"}}>vale</Button>
       <div className="point-container">
         <label className="bourso-container">
           <input
             id="BOURSO"
             value="BOURSO"
-            type="checkbox"
-            ref={checkBou}
-            
-            onChange={modifBanque}
+            type="radio"
+             onChange={modifBanque}
+             checked={banque === "BOURSO"}
+           
           ></input>
           BOURSO
         </label>
@@ -107,10 +102,10 @@ const Pointage = () => {
           <input
             id="BBVA"
             value="BBVA"
-            type="checkbox"
-            ref={checkBva}
-            //checked={banque === "BBVA"}
-            onChange={modifBanque}
+            type="radio"
+             onChange={modifBanque}
+             checked={banque === "BBVA"}
+           
           ></input>
           BBVA
         </label>

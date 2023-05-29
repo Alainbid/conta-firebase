@@ -10,6 +10,7 @@ const Calendar = (
  
   // const [today,setToday] = useState<Date>( new Date());
   const [today] = useState<Date>(() => new Date());
+  const [showBtn,setShowBtn] = useState(false);
   const [month, setMonth] = useState(() => today.getMonth());
   const [year, setYear] = useState(() => today.getFullYear());
   const [nDays, setnDays] = useState(() =>
@@ -68,7 +69,7 @@ if(!open) return null;
         days[j].addEventListener("click", () => {
           setday(j - s);
           days[j].id = "selected";
-         document.getElementById('btn-valid')!!.style.display="revert"; 
+         setShowBtn(true);
          voirCalendar(false);
         });
       }
@@ -103,15 +104,18 @@ const voirCalendar = (open:boolean) => {
    
   const onValid = () => {
     sendData(toUnixTime(year, month, day));
-    document.getElementById('btn-valid')!!.style.display="none";
+    setShowBtn(false);
     document.getElementById('calencar')!!.style.display="none";
+    
   };
 
 
   return (
-    <div>
-      <button id="btn-valid"  onClick={onValid} >
-        {quelMotif}{" "}{day}/{month+1}/{year}{finMotif}</button>
+    <div id="dbut" >
+
+     {showBtn && <button id="btn-valid"  onClick={onValid} >
+        {quelMotif}{" "}{day}/{month+1}/{year}{finMotif}</button>}
+      
       <div className="elegant-calencar" id="calencar">
         <div id="header" className="clearfix">
           <div className="pre-button0" onClick={() => preMonth()}>
