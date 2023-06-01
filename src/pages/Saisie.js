@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { addDoc, collection } from "firebase/firestore";
 
 function Saisie() {
-  const journalCollectionRef = collection(db, "cfbjournal");
+  const journalCollectionRef = collection(db, "adebug");
   const { register, handleSubmit } = useForm();
   const [banque, setBanque] = useState("BOURSO");
   const [menage, setMenage] = useState(true);
@@ -131,11 +131,11 @@ function Saisie() {
 
               <label className="saisie-radio">
                 <input
-                  value="chèque"
+                  value="Chq"
                   type="radio"
                   name="mode"
                   id="cheque"
-                  checked={mode === "chèque"}
+                  checked={mode === "Chq"}
                   onChange={handleChange}
                 ></input>
                 Chèque

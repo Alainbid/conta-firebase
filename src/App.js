@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFoundPage";
 import Depenses from "./pages/Depenses";
 import Benefs from "./pages/Beneficiaires";
 import Saisie  from "./pages/Saisie";
+import Modif from "../src/pages/Modif"
 //  import Test from './pages/Test';
  import Recherche from "./pages/Recherche"
 
@@ -14,6 +15,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Saisie />}></Route>
+        <Route path="/Modif" element={<Modif />}></Route>
         <Route path="/SignInPage" element={<SignIn />}></Route>
         <Route path="/Pointage" element={<Pointage />}></Route>
         <Route path="/Depenses" element={<Depenses />}></Route>

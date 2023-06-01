@@ -79,6 +79,27 @@ td {
   background: #090808;
 }
 
+tr  :hover{
+  background-color: rgb(155, 156, 117);
+}
 .r-total {
   font-size: 1.4rem;
+}
+
+.div-span , .span-annule{
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #43403d;
+}
+.lancer{
+  background-color: wheat;
+  font-size: 1.4rem;
+  margin-left: 2px;
+  border-radius: 10px;
+}
+.annule{
+  background-color: darksalmon;
+  font-size: 1.4rem;
+  margin-left: 55px;
+  border-radius: 10px;
 }

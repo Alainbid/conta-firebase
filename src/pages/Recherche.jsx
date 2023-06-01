@@ -5,6 +5,7 @@ import Navbarre from "../components/Navbar";
 import { db } from "./FirebaseFirestore";
 import Calendar from "../components/Calendar.tsx";
 
+
 import {
   // doc,
   // updateDoc,
@@ -23,7 +24,7 @@ import {
 
 const Recherche = () => {
   const [laListe, setLaListe] = useState([{}]);
-  const [isActive] = useState(null | 0);
+//  const [isActive] = useState(null | 0);
   const [banque, setBanque] = useState("");
   const [pointe, setPointe] = useState(false);
   const [menage, setMenage] = useState(false);
@@ -32,12 +33,14 @@ const Recherche = () => {
   const [note, setNote] = useState("");
   const [nature, setNature] = useState("");
   const [debut, setDebut] = useState(1400000000000);
-  const [fin] = useState(new Date().getTime());
+  const [fin] = useState(new Date("2050/12/30").getTime());
 
   const checkBou = useRef();
   const checkBva = useRef();
   const checkPointe = useRef();
   const checkMenage = useRef();
+
+
 
   const getJournal = async () => {
     let conditions = [];
@@ -72,8 +75,8 @@ const Recherche = () => {
       });
       total = parseInt(total * 100);
       setLetotal(parseFloat(total / 100));
-
       setLaListe(data.docs.map((ledoc) => ({ ...ledoc.data(), id: ledoc.id })));
+
       // console.log("data", data.docs);
     } catch (error) {
       console.log("Erreur du query ", alert(error));
@@ -118,17 +121,28 @@ const Recherche = () => {
   };
 
   const getData = (val) => {
+    
     document.getElementById("recherche-cont").style.display = "flex";
     console.log("getdata", val);
     setDebut(val);
     let w = new Date(val).toLocaleDateString("fr-FR");
     console.log("w", w);
-    document.getElementById("d-debut").value = "le " + w ;
+    document.getElementById("d-debut").value = "le " + w;
   };
+
+  const annuler = () => {
+    // document.getElementById("recherche-cont").style.display = "none";
+   // document.getElementById("calencar").style.display = "flex";
+  };
+
+  const selectionne = (doc) => {
+     console.log("undoc",doc);
+  }
 
   //****************************************************** */
   return (
     <div>
+
       <Navbarre />
       <Calendar
         quelMotif={"Rechercher depuis le :"}
@@ -136,11 +150,10 @@ const Recherche = () => {
         finMotif={" Valider cette date"}
       />
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
+     
       <div id="recherche-cont">
-        
-       
-        <div >
-          <label  className="bourso-container">
+        <div>
+          <label className="bourso-container">
             <input
               id="BOURSO"
               value="BOURSO"
@@ -150,8 +163,8 @@ const Recherche = () => {
             ></input>
             BOURSO
           </label>
-       
-          <label  className="bourso-container">
+
+          <label className="bourso-container">
             <input
               id="BBVA"
               value="BBVA"
@@ -165,71 +178,93 @@ const Recherche = () => {
         </div>
 
         <div className="budget-recherche">
-         <label className="bourso-container">
-          <input
-            value={"M"}
-            type="checkbox"
-            ref={checkMenage}
-            checked={menage === true}
-            onChange={modifMenage}
-          ></input>
-         Budget</label>
+          <label className="bourso-container">
+            <input
+              value={"M"}
+              type="checkbox"
+              ref={checkMenage}
+              checked={menage === true}
+              onChange={modifMenage}
+            ></input>
+            Budget
+          </label>
         </div>
 
         <div className="pointe-container">
-        <label className="bourso-container">
-          <input
-            value={"M"}
-            type="checkbox"
-            ref={checkPointe}
-            id="pointe"
-            onChange={modifPointe}
-          ></input>
-          NON-Pointé</label>
+          <label className="bourso-container">
+            <input
+              value={"M"}
+              type="checkbox"
+              ref={checkPointe}
+              id="pointe"
+              onChange={modifPointe}
+            ></input>
+            NON-Pointé
+          </label>
         </div>
 
         <form className="recherche-form">
-          <div >
-          <label className="label-saisie" >Montant{" "}
-            <input className="input-recherche" type="number" id="somme" onChange={modifSomme}></input>
+          <div>
+            <label className="label-saisie">
+              Montant{" "}
+              <input
+                className="input-recherche"
+                type="number"
+                id="somme"
+                onChange={modifSomme}
+              ></input>
             </label>
           </div>
 
           <div className="note-container">
-          <label  className="label-saisie" >Note{" "}
-            <input className="input-recherche" type="text" id="note" onChange={modifNote}></input>
+            <label className="label-saisie">
+              Note{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="note"
+                onChange={modifNote}
+              ></input>
             </label>
           </div>
 
           <div className="depens-container">
-          <label  className="label-saisie">Depense{" "}
-            <input className="input-recherche" type="text" id="depense" onChange={modifDepense}></input>
+            <label className="label-saisie">
+              Depense{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="depense"
+                onChange={modifDepense}
+              ></input>
             </label>
           </div>
 
           <div className="debut-container">
-          <label  className="label-saisie">Date début{" "}
-            <input className="input-recherche"
-              type="text"
-              id="d-debut"
-            ></input>
+            <label className="label-saisie">
+              Date début{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="d-debut"
+              ></input>
             </label>
           </div>
         </form>
-        <button className="lancer" onClick={getJournal}>lancer la recherche</button>
-
-        {/* 
-      <div className="date-container">
-        <input
-          value={"M"}
-          type="checkbox"
-          ref={checkPointe}
-          // checked={pointe === false}
-          onChange={modifPointe}
-        ></input>
-        <label htmlFor="pointe">NON-Pointé</label>
-      </div> */}
+        <div className="div-span">
+        <span className="span-annule">
+          <button className="lancer" onClick={getJournal}>
+            lancer la recherche
+          </button>
+          <button className="annule" onClick={annuler()}>
+            Annuler
+          </button>
+        </span>
+        </div>
+     
       </div>
+      
+
       <div>
         <table className="tb-pointage">
           <thead className="th-Recherche">
@@ -261,19 +296,22 @@ const Recherche = () => {
               <th style={{ width: 12 + "em" }}>Note</th>
             </tr>
           </thead>
-          <tbody id="ligne">
+          <tbody id="ligne" >
             {laListe.map((undoc, index) => {
               return (
-                <tr
+                <tr onClick={(event) => {
+                  event.preventDefault();
+                  selectionne(undoc)}
+                }
                   className="tr-ligne"
                   key={undoc.id}
-                  style={
-                    isActive === index
-                      ? { background: "yellow" }
-                      : { background: "green" }
-                  }
+                  // style={
+                  //   isActive === index
+                  //     ?  { background: "yellow"}
+                  //     : { background: "green" }
+                  // }
                 >
-                  <td style={{ width: 2 + "em" }}>{index + 1}</td>
+                  <td  style={{ width: 2 + "em" }}>{index + 1}</td>
                   <td style={{ width: 6 + "em" }}>{undoc.banque}</td>
                   <td style={{ width: 11 + "em" }}>
                     {new Date(undoc.temps).toLocaleDateString()}

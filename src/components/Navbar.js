@@ -6,6 +6,10 @@ const Navbarre = () => {
   return (
     <div className="navbar">
       <div className="navbar_href">
+           
+        <NavLink to="/Modif" className="navlk">
+          Modif
+        </NavLink>
         <NavLink to="/" className="navlk">
           Saisie
         </NavLink>
@@ -15,10 +19,7 @@ const Navbarre = () => {
         {/* <NavLink to="/SignUpPage" className="navlk">
           Sign_UP
         </NavLink> */}
-        
-        {/* <NavLink to="/Saisie" className="navlk">
-          Saisie
-        </NavLink> */}
+   
         <NavLink to="/Pointage" className="navlk">
           Pointage
         </NavLink>
