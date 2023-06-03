@@ -3,10 +3,9 @@ import Navbarre from "../components/Navbar";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./FirebaseFirestore";
 import "../styles/modif.scss";
-// import { useFormState } from "react-hook-form";
-
+const lequel = "bKseplfKB3NBOAcLiEa0";
 const Modif = () => {
-  const docRef = doc(db, "adebug", "bKseplfKB3NBOAcLiEa0");
+  const docRef = doc(db, "adebug", lequel);
   const [somme, setSomme] = useState(0);
   const [banque, setBanque] = useState("");
   const [nature, setNature] = useState("");
@@ -34,7 +33,6 @@ const Modif = () => {
       setPointe(docSnap.get("pointe"));
       setMode(docSnap.get("mode"));
       const d = docSnap.get("temps");
-      // console.log("date", d);
       setDate(new Date(d).toLocaleDateString("fr-FR"));
     } else {
       alert("document inconnu");
@@ -43,7 +41,7 @@ const Modif = () => {
 
   const modifBanque = async (e: any) => {
     console.log("event", e.target.value);
-    setBanque(e.target.value);
+    setBanque(e.target.value.toUpperCase());
     await updateDoc(docRef, { banque: e.target.value });
     msg();
   };
@@ -102,7 +100,7 @@ const Modif = () => {
   };
 
   const onCancel = () => {
-    //  document.getElementById("modif-container")!!.style.display="none";
+   //  document.getElementById("modif-container")!!.style.display="hidden";
   };
 
 const msg = () => { 
@@ -125,6 +123,7 @@ const msg = () => {
             <input
               id="banque"
               className="modif-saisie"
+              
               onChange={(event) => {
                 {
                   modifBanque(event);
@@ -281,8 +280,8 @@ const msg = () => {
         </form>
         <p></p>
         <div className="modif-btn">
-          <button className="modif-button" onClick={onDelete}>Supprimer l&apos;écriture</button>
-          <button className="modif-button"  onClick={onCancel} style={{color:"#813b17"}}>Terminé</button>
+          <button type="button" className="modif-button" onClick={onDelete}>Supprimer l&apos;écriture</button>
+          <button type="button" id="btn-cancel" className="modif-button"  onClick={onCancel} >Retour</button>
         </div>
       </div>
     </div>
