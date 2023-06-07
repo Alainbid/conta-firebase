@@ -4,13 +4,13 @@ import "../styles/calendar.scss";
 
 
 const Calendar = (
-   { sendData , quelMotif, finMotif }:
-   {sendData:Function;quelMotif:string, finMotif:string },
+   { sendData  }:
+   {sendData:Function },
    ) => {
  
   // const [today,setToday] = useState<Date>( new Date());
   const [today] = useState<Date>(() => new Date());
-  const [showBtn,setShowBtn] = useState(false);
+  // const [showBtn,setShowBtn] = useState(false);
   const [month, setMonth] = useState(() => today.getMonth());
   const [year, setYear] = useState(() => today.getFullYear());
   const [nDays, setnDays] = useState(() =>
@@ -19,7 +19,7 @@ const Calendar = (
   const [startDay, setStartDay] = useState(() =>
     new Date(year, month, 1).getDay()
   );
-  const [day, setday] = useState(() => today!!.getDate());
+  const [day] = useState(() => today!!.getDate());
 
   const monthTag = [
     "Jan",
@@ -66,11 +66,12 @@ if(!open) return null;
         days[j].id = "today";
         let s = v - 1;
         days[day + s].id = "selected";
+
         days[j].addEventListener("click", () => {
-          setday(j - s);
-          days[j].id = "selected";
-         setShowBtn(true);
-         voirCalendar(false);
+          days[j].id = "selected"
+          let x = parseInt (document.getElementById('selected')!!.innerHTML , 10);
+          // console.log("x",x);
+           onValid(x);
         });
       }
     }
@@ -102,19 +103,14 @@ const voirCalendar = (open:boolean) => {
     }
   };
    
-  const onValid = () => {
-    sendData(toUnixTime(year, month, day));
-    setShowBtn(false);
+  const onValid = (d:number) => {
+    sendData(toUnixTime(year, month, d));
     document.getElementById('calencar')!!.style.display="none";
-    
   };
 
 
   return (
     <div id="dbut" >
-
-     {showBtn && <button id="btn-valid"  onClick={onValid} >
-        {quelMotif}{" "}{day}/{month+1}/{year}{finMotif}</button>}
       
       <div className="elegant-calencar" id="calencar">
         <div id="header" className="clearfix">

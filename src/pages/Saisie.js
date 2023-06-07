@@ -55,8 +55,8 @@ function Saisie() {
 
   const getData = (val) => {
     setTemps(val);
-    let w = new Date(val).toLocaleDateString("fr-FR");
-    console.log("date ", w, val);
+    // let w = new Date(val).toLocaleDateString("fr-FR");
+    // console.log("date ", w, val);
     document.getElementById("saisie-container").style.display = "revert";
     setNavHidden(false);
   };

@@ -12,7 +12,8 @@ const Modale = (props) => {
   if (!props.open) return null;
 
   return (
-    <div className="modal-overlay">
+    // <div className="modal-overlay" style={top= {posdex}}>
+    <div className="modal-overlay" >
       <div className="modal-content">
         <div className="modal-header">
           <h4 className="modal-tittle"> Modifier la liste </h4>

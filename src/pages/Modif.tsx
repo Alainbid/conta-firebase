@@ -3,7 +3,11 @@ import Navbarre from "../components/Navbar";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./FirebaseFirestore";
 import "../styles/modif.scss";
+import ListeDepenses from "../components/ListeDepenses";
+import PropTypes from "prop-types";
+
 const lequel = "bKseplfKB3NBOAcLiEa0";
+
 const Modif = () => {
   const docRef = doc(db, "adebug", lequel);
   const [somme, setSomme] = useState(0);
@@ -15,6 +19,8 @@ const Modif = () => {
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
   const [date, setDate] = useState("01/01/2023");
+  const [showListDepenses, setShowListDepenses] = useState(false);
+  const [listPosition, setListPosition] = useState([0, 0]);
 
   useEffect(() => {
     getDocument();
@@ -40,9 +46,9 @@ const Modif = () => {
   };
 
   const modifBanque = async (e: any) => {
-    console.log("event", e.target.value);
-    setBanque(e.target.value.toUpperCase());
-    await updateDoc(docRef, { banque: e.target.value });
+    let x = e.target.value.toUpperCase();
+    await setBanque(x);
+    await updateDoc(docRef, { banque: x });
     msg();
   };
 
@@ -53,8 +59,8 @@ const Modif = () => {
   };
 
   const modifNature = async (e: any) => {
-    setNature(e.target.value);
-    await updateDoc(docRef, { nature: e.target.value });
+    setNature(e);
+    await updateDoc(docRef, { nature: e });
     msg();
   };
 
@@ -71,12 +77,11 @@ const Modif = () => {
   };
 
   const modifMenage = async (e: any) => {
-     
     e.target.checked ? setMenage(true) : setMenage(false);
     e.target.checked
       ? await updateDoc(docRef, { menage: true })
       : await updateDoc(docRef, { menage: false });
-     msg();
+    msg();
   };
 
   const modifPointe = async (e: any) => {
@@ -89,7 +94,6 @@ const Modif = () => {
   };
 
   const modifMode = async (e: any) => {
-    
     setMode(e.target.value);
     await updateDoc(docRef, { mode: e.target.value });
     msg();
@@ -100,30 +104,45 @@ const Modif = () => {
   };
 
   const onCancel = () => {
-   //  document.getElementById("modif-container")!!.style.display="hidden";
+   
   };
 
-const msg = () => { 
-  document.getElementById('modif-msg')!!.style.display=('flex');
-  setTimeout(function(){
-    document.getElementById('modif-msg')!!.style.display=('none');
-}, 2500);
-}
+  const msg = () => {
+    let w = window.innerWidth/2;
+    let z= (w-258)+'px';
+    document.getElementById("modif-msg")!!.style.display = "flex";
+    document.getElementById("modif-msg")!!.style.left = z;
+    setTimeout(function () {
+      document.getElementById("modif-msg")!!.style.display = "none";
+    }, 2500);
+  };
 
+ 
   return (
     <div>
       <Navbarre></Navbarre>
-
+      <ListeDepenses
+        open={showListDepenses}
+        onClose={() => {
+          setShowListDepenses(false);
+        }}
+        
+         posdex={listPosition[0]}
+         posdey={listPosition[1]}
+        onValider={(lequel) => {
+          modifNature(lequel);
+        }}
+      ></ListeDepenses>
       <div>
-        <div className="modif-msg" id="modif-msg">Modification enregistrée</div>
-        <form className="modif-container"  autoComplete="off">
-
+        <div className="modif-msg" id="modif-msg" style={{left:'300px'}}>
+          Modification enregistrée
+        </div>
+        <form className="modif-container" id="modif-container" autoComplete="off">
           <label className="modif-label">
             Banque
             <input
               id="banque"
               className="modif-saisie"
-              
               onChange={(event) => {
                 {
                   modifBanque(event);
@@ -151,6 +170,11 @@ const msg = () => {
             Dépense
             <input
               className="modif-saisie"
+              onClick={(event) => {
+             setListPosition([event.clientX-200, event.clientY-270]);
+                setShowListDepenses(true);
+               
+              }}
               onChange={(event) => {
                 {
                   modifNature(event);
@@ -235,7 +259,7 @@ const msg = () => {
 
               <label className="modif-radio">
                 <input
-                 value="Chq"
+                  value="Chq"
                   type="radio"
                   name="mode"
                   id="cheque"
@@ -280,12 +304,32 @@ const msg = () => {
         </form>
         <p></p>
         <div className="modif-btn">
-          <button type="button" className="modif-button" onClick={onDelete}>Supprimer l&apos;écriture</button>
-          <button type="button" id="btn-cancel" className="modif-button"  onClick={onCancel} >Retour</button>
+          <button type="button" className="modif-button" 
+          
+          onClick={onDelete}>
+            Supprimer l&apos;écriture
+          </button>
+          <button
+            type="button"
+            id="btn-cancel"
+            className="modif-button"
+            onClick={onCancel}
+          >
+            Retour
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
+
+Modif.propTypes = {
+  listPosition: PropTypes.object,
+  posdex: PropTypes.number,
+  posdey: PropTypes.number,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  onValider: PropTypes.func,
+};
 export default Modif;

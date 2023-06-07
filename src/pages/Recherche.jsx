@@ -4,6 +4,7 @@ import "../styles/recherche.scss";
 import Navbarre from "../components/Navbar";
 import { db } from "./FirebaseFirestore";
 import Calendar from "../components/Calendar.tsx";
+import Modif from "../pages/Modif.tsx";
 
 
 import {
@@ -33,12 +34,14 @@ const Recherche = () => {
   const [note, setNote] = useState("");
   const [nature, setNature] = useState("");
   const [debut, setDebut] = useState(1400000000000);
-  const [fin] = useState(new Date("2050/12/30").getTime());
-
+  //const [fin] = useState(new Date("2050/12/30").getTime());
+  const [fin] = useState(2555580680000);
+  const [ showCalendar,setShowCalendar] = useState(false);
   const checkBou = useRef();
   const checkBva = useRef();
   const checkPointe = useRef();
   const checkMenage = useRef();
+  const [showLequel,setShowLequel] = useState("");
 
 
 
@@ -99,6 +102,11 @@ const Recherche = () => {
     } else !bso && !bva ? setBanque("X") : setBanque("all");
   };
 
+const depuisLe = () => {
+  setShowCalendar(true);
+  document.getElementById('depuis-container').style.display='none';
+}
+
   const modifMenage = (e) => {
     e.target.checked ? setMenage(true) : setMenage(false);
   };
@@ -121,7 +129,7 @@ const Recherche = () => {
   };
 
   const getData = (val) => {
-    
+    document.getElementById("thr-Recherche").style.display='revert';
     document.getElementById("recherche-cont").style.display = "flex";
     console.log("getdata", val);
     setDebut(val);
@@ -131,12 +139,13 @@ const Recherche = () => {
   };
 
   const annuler = () => {
-    // document.getElementById("recherche-cont").style.display = "none";
-   // document.getElementById("calencar").style.display = "flex";
+  //   document.getElementById("recherche-cont").style.display = "none";
+  //  document.getElementById("calencar").style.display = "flex";
   };
 
   const selectionne = (doc) => {
      console.log("undoc",doc);
+     setShowLequel(doc);
   }
 
   //****************************************************** */
@@ -144,12 +153,29 @@ const Recherche = () => {
     <div>
 
       <Navbarre />
-      <Calendar
-        quelMotif={"Rechercher depuis le :"}
+       {showCalendar && <Calendar
+       // quelMotif={"Rechercher depuis le :"}
         sendData={getData}
-        finMotif={" Valider cette date"}
-      />
+       // finMotif={" Valider cette date"}
+       />
+       }
+
+
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
+     <Modif
+       open={showLequel}
+          onClose={() => setShowLequel(false)}
+          onValider={() => {
+            getJournal();
+          }}
+       ></Modif>
+       
+
+      <div  id="depuis-container">
+      <label >Rechercher depuis le
+     <button  onClick= {() => {depuisLe()}}>  ?</button>
+     </label>
+     </div>
      
       <div id="recherche-cont">
         <div>
@@ -265,10 +291,10 @@ const Recherche = () => {
       </div>
       
 
-      <div>
+      <div id='tb-pointage'>
         <table className="tb-pointage">
           <thead className="th-Recherche">
-            <tr className="thr-Recherche">
+            <tr id="thr-Recherche">
               <th style={{ width: 2 + "em" }}>N°</th>
               <th style={{ width: 6 + "em" }}>Banque</th>
               <th style={{ width: 11 + "em" }}>Date</th>

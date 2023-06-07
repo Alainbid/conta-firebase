@@ -65,7 +65,7 @@ const SnapshotDepenses = () => {
   return (
     <div>
       <Navbar></Navbar>
-      {
+      
         <Modale
           open={showModal}
           onClose={() => setShowModal(false)}
@@ -82,7 +82,7 @@ const SnapshotDepenses = () => {
             supprimer(idItem);
           }}
         ></Modale>
-      }
+      
 
       <div className="depense-container">
         <ul className="f-li">Types de dépenses</ul>

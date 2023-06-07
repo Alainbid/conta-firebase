@@ -14,7 +14,7 @@ import {
   where,
   updateDoc,
 } from "firebase/firestore";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 
 //console.log("journalCollectionRef.", journalCollectionRef.type);
 
@@ -28,7 +28,7 @@ const Pointage = () => {
   useEffect(() => {
     getJournal();
     // console.log("laliste",laListe);
-  }, []);
+  }, [banque]);
 
   const getJournal = async () => {
     let conditions = [];
@@ -74,8 +74,6 @@ const Pointage = () => {
       setBanque("BOURSO");
    if((e.target.id === "BBVA") && e.target.checked )
       setBanque("BBVA");
-    // console.log("banque =",banque );
-   
   };
 
 
@@ -83,8 +81,6 @@ const Pointage = () => {
     <div>
       <Navbarre />
       <p className="h2-pointage">pointage d&apos;écritures </p>
-{/* button invisible rajouté pour permettre la majour de la banque */}
-<Button onClick={getJournal()}  style={{ display:"none"}}>vale</Button>
       <div className="point-container">
         <label className="bourso-container">
           <input
