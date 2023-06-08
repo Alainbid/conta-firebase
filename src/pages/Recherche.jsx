@@ -66,7 +66,7 @@ const Recherche = () => {
     conditions.push(orderBy("date", "desc"));
 
     conditions.push(endAt(debut));
-    conditions.push(startAt(fin)); //aujourd'hui car ordre décroissant
+    conditions.push(startAt(fin)); //31/12/2050
     conditions.push(limit(100));
 
     //************  QUERY ******************************/
@@ -136,7 +136,7 @@ const Recherche = () => {
     document.getElementById("thr-Recherche").style.display = "revert";
     document.getElementById("recherche-cont").style.display = "flex";
     console.log("getdata", val);
-    setDebut(val);
+    setDebut(val-(24*60*60*1000));
     let w = new Date(val).toLocaleDateString("fr-FR");
     console.log("w", w);
     document.getElementById("d-debut").value = "le " + w;
