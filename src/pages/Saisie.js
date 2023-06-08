@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { addDoc, collection } from "firebase/firestore";
 
 function Saisie() {
-  const journalCollectionRef = collection(db, "adebug");
+  const journalCollectionRef = collection(db, "cfbjournal");
   const { register, handleSubmit } = useForm();
   const [banque, setBanque] = useState("BOURSO");
   const [menage, setMenage] = useState(true);

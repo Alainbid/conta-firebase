@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Navbarre from "../components/Navbar";
 import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./FirebaseFirestore";
 import "../styles/modif.scss";
 import ListeDepenses from "../components/ListeDepenses";
 import PropTypes from "prop-types";
 
-const lequel = "bKseplfKB3NBOAcLiEa0";
 
-const Modif = () => {
-  const docRef = doc(db, "adebug", lequel);
+// const lequel = "bKseplfKB3NBOAcLiEa0";
+
+const Modif = (props:any) => {
+  
+  const docRef = doc(db, "cfbjournal", props.openModif);
   const [somme, setSomme] = useState(0);
   const [banque, setBanque] = useState("");
   const [nature, setNature] = useState("");
@@ -22,26 +23,38 @@ const Modif = () => {
   const [showListDepenses, setShowListDepenses] = useState(false);
   const [listPosition, setListPosition] = useState([0, 0]);
 
+
+
+console.log('props',props.openModif);
+// const lequel:string = props.openModif;
+// console.log("lequel props ", lequel);
+
+
   useEffect(() => {
-    getDocument();
-  }, []);
+        getDocument();
+  }, [props.openModif]);
+
 
   const getDocument = async () => {
+    if(props.openModif != "x"){
+      console.log('getdoc',props.openModif);
+      
     const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      console.log("data", docSnap.data());
-      setSomme(docSnap.get("somme"));
-      setBanque(docSnap.get("banque"));
-      setNature(docSnap.get("nature"));
-      setBenef(docSnap.get("benef"));
-      setNote(docSnap.get("note"));
-      setMenage(docSnap.get("menage"));
-      setPointe(docSnap.get("pointe"));
-      setMode(docSnap.get("mode"));
-      const d = docSnap.get("temps");
-      setDate(new Date(d).toLocaleDateString("fr-FR"));
-    } else {
-      alert("document inconnu");
+      if (docSnap.exists()) {
+        console.log("data", docSnap.data());
+        setSomme(docSnap.get("somme"));
+        setBanque(docSnap.get("banque"));
+        setNature(docSnap.get("nature"));
+        setBenef(docSnap.get("benef"));
+        setNote(docSnap.get("note"));
+        setMenage(docSnap.get("menage"));
+        setPointe(docSnap.get("pointe"));
+        setMode(docSnap.get("mode"));
+        const d = docSnap.get("temps");
+        setDate(new Date(d).toLocaleDateString("fr-FR"));
+      } else {
+        alert("document inconnu");
+      }
     }
   };
 
@@ -51,6 +64,7 @@ const Modif = () => {
     await updateDoc(docRef, { banque: x });
     msg();
   };
+
 
   const modifSomme = async (e: any) => {
     setSomme(e.target.value);
@@ -103,9 +117,7 @@ const Modif = () => {
     await deleteDoc(docRef);
   };
 
-  const onCancel = () => {
-   
-  };
+ 
 
   const msg = () => {
     let w = window.innerWidth/2;
@@ -117,10 +129,13 @@ const Modif = () => {
     }, 2500);
   };
 
- 
+  if(props.openModif === "x") return null;
+
+  //******************************************************* */
   return (
     <div>
-      <Navbarre></Navbarre>
+     
+
       <ListeDepenses
         open={showListDepenses}
         onClose={() => {
@@ -313,7 +328,8 @@ const Modif = () => {
             type="button"
             id="btn-cancel"
             className="modif-button"
-            onClick={onCancel}
+            onClick={props.onCloseModif}
+            // onClick={onCancel}
           >
             Retour
           </button>
@@ -325,6 +341,8 @@ const Modif = () => {
 
 
 Modif.propTypes = {
+  openModif: PropTypes.string,
+  onCloseModif:PropTypes.func,
   listPosition: PropTypes.object,
   posdex: PropTypes.number,
   posdey: PropTypes.number,

@@ -6,7 +6,6 @@ import { db } from "./FirebaseFirestore";
 import Calendar from "../components/Calendar.tsx";
 import Modif from "../pages/Modif.tsx";
 
-
 import {
   // doc,
   // updateDoc,
@@ -25,7 +24,7 @@ import {
 
 const Recherche = () => {
   const [laListe, setLaListe] = useState([{}]);
-//  const [isActive] = useState(null | 0);
+  //  const [isActive] = useState(null | 0);
   const [banque, setBanque] = useState("");
   const [pointe, setPointe] = useState(false);
   const [menage, setMenage] = useState(false);
@@ -36,16 +35,19 @@ const Recherche = () => {
   const [debut, setDebut] = useState(1400000000000);
   //const [fin] = useState(new Date("2050/12/30").getTime());
   const [fin] = useState(2555580680000);
-  const [ showCalendar,setShowCalendar] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const checkBou = useRef();
   const checkBva = useRef();
   const checkPointe = useRef();
   const checkMenage = useRef();
-  const [showLequel,setShowLequel] = useState("");
+  const [modifLequel, setModifLequel] = useState("x");
+  const [showNavbar,setShowNavbar] = useState(true);
+
 
 
 
   const getJournal = async () => {
+    
     let conditions = [];
     if (banque !== "all") conditions.push(where("banque", "==", banque));
 
@@ -102,10 +104,11 @@ const Recherche = () => {
     } else !bso && !bva ? setBanque("X") : setBanque("all");
   };
 
-const depuisLe = () => {
-  setShowCalendar(true);
-  document.getElementById('depuis-container').style.display='none';
-}
+  const depuisLe = () => {
+    setShowNavbar(false);
+    setShowCalendar(true);
+    document.getElementById("depuis-container").style.display = "none";
+  };
 
   const modifMenage = (e) => {
     e.target.checked ? setMenage(true) : setMenage(false);
@@ -129,7 +132,8 @@ const depuisLe = () => {
   };
 
   const getData = (val) => {
-    document.getElementById("thr-Recherche").style.display='revert';
+    // document.getElementById("navbar").style.display = "none";
+    document.getElementById("thr-Recherche").style.display = "revert";
     document.getElementById("recherche-cont").style.display = "flex";
     console.log("getdata", val);
     setDebut(val);
@@ -138,45 +142,52 @@ const depuisLe = () => {
     document.getElementById("d-debut").value = "le " + w;
   };
 
-  const annuler = () => {
-  //   document.getElementById("recherche-cont").style.display = "none";
-  //  document.getElementById("calencar").style.display = "flex";
-  };
+  // const annuler = () => {
+  //   if(!showCalendar && !showNavbar){window.location.reload(true)}
+    
+  // };
 
   const selectionne = (doc) => {
-     console.log("undoc",doc);
-     setShowLequel(doc);
-  }
+    setModifLequel(doc.id);
+    console.log("undoc", doc.id);
+    console.log("undoc modiflequel", modifLequel);
+  };
 
   //****************************************************** */
   return (
-    <div>
-
-      <Navbarre />
-       {showCalendar && <Calendar
-       // quelMotif={"Rechercher depuis le :"}
-        sendData={getData}
-       // finMotif={" Valider cette date"}
-       />
-       }
-
+    <div> 
+    {showNavbar && (
+      <Navbarre  id='navbar' ></Navbarre>
+    )}
+        {showCalendar && (
+          <Calendar id='calencar'   sendData={getData}    />
+        )}
+      
+    
 
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
-     <Modif
-       open={showLequel}
-          onClose={() => setShowLequel(false)}
-          onValider={() => {
-            getJournal();
-          }}
-       ></Modif>
-       
 
-      <div  id="depuis-container">
-      <label >Rechercher depuis le
-     <button  onClick= {() => {depuisLe()}}>  ?</button>
-     </label>
-     </div>
-     
+
+      <Modif
+        openModif= {modifLequel}
+        
+        onCloseModif={() => setModifLequel("x")}
+      ></Modif>
+
+      <div id="depuis-container">
+        <label>
+          Rechercher depuis quelle date 
+          <button
+            onClick={() => {
+              depuisLe();
+            }}
+          >
+            {" "}
+            ?
+          </button>
+        </label>
+      </div>
+
       <div id="recherche-cont">
         <div>
           <label className="bourso-container">
@@ -278,20 +289,21 @@ const depuisLe = () => {
           </div>
         </form>
         <div className="div-span">
-        <span className="span-annule">
-          <button className="lancer" onClick={getJournal}>
-            lancer la recherche
-          </button>
-          <button className="annule" onClick={annuler()}>
-            Annuler
-          </button>
-        </span>
+          <span className="span-annule">
+            <button className="lancer" onClick={getJournal}>
+              lancer la recherche
+            </button>
+            <button className="annule" onClick= {() => {
+              console.log('clic',showCalendar,showNavbar);
+              if(showCalendar && !showNavbar)window.location.reload(true);
+            }}>
+              Annuler
+            </button>
+          </span>
         </div>
-     
       </div>
-      
 
-      <div id='tb-pointage'>
+      <div id="tb-pointage">
         <table className="tb-pointage">
           <thead className="th-Recherche">
             <tr id="thr-Recherche">
@@ -322,13 +334,14 @@ const depuisLe = () => {
               <th style={{ width: 12 + "em" }}>Note</th>
             </tr>
           </thead>
-          <tbody id="ligne" >
+          <tbody id="ligne">
             {laListe.map((undoc, index) => {
               return (
-                <tr onClick={(event) => {
-                  event.preventDefault();
-                  selectionne(undoc)}
-                }
+                <tr
+                  onClick={(event) => {
+                    event.preventDefault();
+                    selectionne(undoc);
+                  }}
                   className="tr-ligne"
                   key={undoc.id}
                   // style={
@@ -337,7 +350,7 @@ const depuisLe = () => {
                   //     : { background: "green" }
                   // }
                 >
-                  <td  style={{ width: 2 + "em" }}>{index + 1}</td>
+                  <td style={{ width: 2 + "em" }}>{index + 1}</td>
                   <td style={{ width: 6 + "em" }}>{undoc.banque}</td>
                   <td style={{ width: 11 + "em" }}>
                     {new Date(undoc.temps).toLocaleDateString()}
