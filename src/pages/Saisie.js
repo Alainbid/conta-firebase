@@ -225,8 +225,9 @@ function Saisie() {
                 onChange={modifMenage}
               ></input>
             </label>
+           
           </div>
-
+ <p className="date-saisie">le{" : "} {new Date(temps).toLocaleDateString()} </p>
           <span className="btn-fin">
             {" "}
             <button type="submit" className="btn btn-success">

@@ -5,11 +5,9 @@ import "../styles/modif.scss";
 import ListeDepenses from "../components/ListeDepenses";
 import PropTypes from "prop-types";
 
-
 // const lequel = "bKseplfKB3NBOAcLiEa0";
 
-const Modif = (props:any) => {
-  
+const Modif = (props: any) => {
   const docRef = doc(db, "cfbjournal", props.openModif);
   const [somme, setSomme] = useState(0);
   const [banque, setBanque] = useState("");
@@ -23,23 +21,19 @@ const Modif = (props:any) => {
   const [showListDepenses, setShowListDepenses] = useState(false);
   const [listPosition, setListPosition] = useState([0, 0]);
 
-
-
-console.log('props',props.openModif);
-// const lequel:string = props.openModif;
-// console.log("lequel props ", lequel);
-
+  // console.log("props", props.openModif);
+  // const lequel:string = props.openModif;
+  // console.log("lequel props ", lequel);
 
   useEffect(() => {
-        getDocument();
+    getDocument();
   }, [props.openModif]);
 
-
   const getDocument = async () => {
-    if(props.openModif != "x"){
-      console.log('getdoc',props.openModif);
-      
-    const docSnap = await getDoc(docRef);
+    if (props.openModif != "x") {
+      console.log("getdoc", props.openModif);
+
+      const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         console.log("data", docSnap.data());
         setSomme(docSnap.get("somme"));
@@ -64,7 +58,6 @@ console.log('props',props.openModif);
     await updateDoc(docRef, { banque: x });
     msg();
   };
-
 
   const modifSomme = async (e: any) => {
     setSomme(e.target.value);
@@ -117,11 +110,9 @@ console.log('props',props.openModif);
     await deleteDoc(docRef);
   };
 
- 
-
   const msg = () => {
-    let w = window.innerWidth/2;
-    let z= (w-258)+'px';
+    let w = window.innerWidth / 2;
+    let z = w - 258 + "px";
     document.getElementById("modif-msg")!!.style.display = "flex";
     document.getElementById("modif-msg")!!.style.left = z;
     setTimeout(function () {
@@ -129,30 +120,31 @@ console.log('props',props.openModif);
     }, 2500);
   };
 
-  if(props.openModif === "x") return null;
+  if (props.openModif === "x") return null;
 
   //******************************************************* */
   return (
     <div>
-     
-
       <ListeDepenses
         open={showListDepenses}
         onClose={() => {
           setShowListDepenses(false);
         }}
-        
-         posdex={listPosition[0]}
-         posdey={listPosition[1]}
+        posdex={listPosition[0]}
+        posdey={listPosition[1]}
         onValider={(lequel) => {
           modifNature(lequel);
         }}
       ></ListeDepenses>
       <div>
-        <div className="modif-msg" id="modif-msg" style={{left:'300px'}}>
+        <div className="modif-msg" id="modif-msg" style={{ left: "300px" }}>
           Modification enregistrée
         </div>
-        <form className="modif-container" id="modif-container" autoComplete="off">
+        <form
+          className="modif-container"
+          id="modif-container"
+          autoComplete="off"
+        >
           <label className="modif-label">
             Banque
             <input
@@ -186,9 +178,8 @@ console.log('props',props.openModif);
             <input
               className="modif-saisie"
               onClick={(event) => {
-             setListPosition([event.clientX-200, event.clientY-270]);
+                setListPosition([event.clientX - 200, event.clientY - 270]);
                 setShowListDepenses(true);
-               
               }}
               onChange={(event) => {
                 {
@@ -319,9 +310,7 @@ console.log('props',props.openModif);
         </form>
         <p></p>
         <div className="modif-btn">
-          <button type="button" className="modif-button" 
-          
-          onClick={onDelete}>
+          <button type="button" className="modif-button" onClick={onDelete}>
             Supprimer l&apos;écriture
           </button>
           <button
@@ -339,10 +328,9 @@ console.log('props',props.openModif);
   );
 };
 
-
 Modif.propTypes = {
   openModif: PropTypes.string,
-  onCloseModif:PropTypes.func,
+  onCloseModif: PropTypes.func,
   listPosition: PropTypes.object,
   posdex: PropTypes.number,
   posdey: PropTypes.number,

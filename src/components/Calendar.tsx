@@ -68,9 +68,9 @@ if(!open) return null;
         days[day + s].id = "selected";
 
         days[j].addEventListener("click", () => {
-          days[j].id = "selected"
-          let x = parseInt (document.getElementById('selected')!!.innerHTML , 10);
-          // console.log("x",x);
+          days[j].id = "idselected"
+          let x = parseInt (document.getElementById('idselected')!!.innerHTML , 10);
+          //  console.log("day",x);
            onValid(x);
         });
       }
@@ -104,7 +104,7 @@ const voirCalendar = (open:boolean) => {
   };
    
   const onValid = (d:number) => {
-    sendData(toUnixTime(year, month, d));
+    sendData(toUnixTime(year, month, d, "recherche"));
     document.getElementById('calencar')!!.style.display="none";
   };
 
@@ -207,17 +207,18 @@ const voirCalendar = (open:boolean) => {
 export default Calendar;
 
 
-const toUnixTime = (year:number, month:number, day:number) => {
-  //cette fonction ajoute  heure, min, sec au jour choisi
-  const currDate = new Date().getTime();
-  const date = new Date(Date.UTC(year, month , day));
-  let x = Math.floor(date.getTime()); // en milli secondes
-  let d = currDate % (24 * 60 * 60 * 1000);
-  // let w = new Date(x + d);
-  //console.log("w", w.toLocaleString());
-  if (x > 0) {
-    return (x+d);
-  } else {
-    return null;
-  }
+const toUnixTime = (year:number, month:number, day:number, pourqui:string) => {
+  let datechoisie = new Date(year, month , day).getTime();
+   console.log("datechoisie",datechoisie);
+   let hoy = new Date().getTime();
+   let tx = new Date().toDateString();
+  let hoyoh = new Date(tx).getTime();
+  let datechoisieHeure = datechoisie + (hoy-hoyoh);
+   console.log("datechoisieHeure", new Date(datechoisieHeure).toLocaleString());
+
+  if (pourqui === "recherche") {
+    return (datechoisie);
+  } else if (pourqui ==="saisie"){
+    return (datechoisieHeure);
+  }else{ return null}
 };
