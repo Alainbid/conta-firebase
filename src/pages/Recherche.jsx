@@ -135,7 +135,7 @@ const Recherche = () => {
     // document.getElementById("navbar").style.display = "none";
     document.getElementById("thr-Recherche").style.display = "revert";
     document.getElementById("recherche-cont").style.display = "flex";
-    console.log("getdata", val);
+    console.log("date debut", val);
     setDebut(val-(24*60*60*1000));
     let w = new Date(val).toLocaleDateString("fr-FR");
     console.log("w", w);
