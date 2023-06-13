@@ -104,7 +104,7 @@ const voirCalendar = (open:boolean) => {
   };
    
   const onValid = (d:number) => {
-    sendData(toUnixTime(year, month, d, "recherche"));
+    sendData(year, month, d);
     document.getElementById('calencar')!!.style.display="none";
   };
 
@@ -207,18 +207,3 @@ const voirCalendar = (open:boolean) => {
 export default Calendar;
 
 
-const toUnixTime = (year:number, month:number, day:number, pourqui:string) => {
-  let datechoisie = new Date(year, month , day).getTime();
-   console.log("datechoisie",datechoisie);
-   let hoy = new Date().getTime();
-   let tx = new Date().toDateString();
-  let hoyoh = new Date(tx).getTime();
-  let datechoisieHeure = datechoisie + (hoy-hoyoh);
-   console.log("datechoisieHeure", new Date(datechoisieHeure).toLocaleString());
-
-  if (pourqui === "recherche") {
-    return (datechoisie);
-  } else if (pourqui ==="saisie"){
-    return (datechoisieHeure);
-  }else{ return null}
-};

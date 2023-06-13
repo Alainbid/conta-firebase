@@ -131,14 +131,15 @@ const Recherche = () => {
     e.target.value === "" ? setNature("") : setNature(e.target.value);
   };
 
-  const getData = (val) => {
+  const getData = (year,month,day) => {
     // document.getElementById("navbar").style.display = "none";
     document.getElementById("thr-Recherche").style.display = "revert";
     document.getElementById("recherche-cont").style.display = "flex";
-    console.log("date debut", val);
-    setDebut(val-(24*60*60*1000));
+    let val = new Date(year,month,day).getTime();
+    // console.log("date debut", val);
+    setDebut(val);
     let w = new Date(val).toLocaleDateString("fr-FR");
-    console.log("w", w);
+    // console.log("w", w);
     document.getElementById("d-debut").value = "le " + w;
   };
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc} from "firebase/firestore";
 import { db } from "./FirebaseFirestore";
 import "../styles/modif.scss";
 import ListeDepenses from "../components/ListeDepenses";
 import PropTypes from "prop-types";
 
-// const lequel = "bKseplfKB3NBOAcLiEa0";
 
 const Modif = (props: any) => {
   const docRef = doc(db, "cfbjournal", props.openModif);
@@ -17,13 +16,11 @@ const Modif = (props: any) => {
   const [note, setNote] = useState("");
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
-  const [date, setDate] = useState("01/01/2023");
+  const [date, setDate] = useState("");
+  const [ladate, setLadate] = useState(0);
   const [showListDepenses, setShowListDepenses] = useState(false);
   const [listPosition, setListPosition] = useState([0, 0]);
-
-  // console.log("props", props.openModif);
-  // const lequel:string = props.openModif;
-  // console.log("lequel props ", lequel);
+  const[tps,setTps] = useState(0);
 
   useEffect(() => {
     getDocument();
@@ -45,7 +42,10 @@ const Modif = (props: any) => {
         setPointe(docSnap.get("pointe"));
         setMode(docSnap.get("mode"));
         const d = docSnap.get("temps");
+        setTps(d);
+        setLadate (docSnap.get("date"));
         setDate(new Date(d).toLocaleDateString("fr-FR"));
+
       } else {
         alert("document inconnu");
       }
@@ -94,7 +94,6 @@ const Modif = (props: any) => {
   const modifPointe = async (e: any) => {
     msg();
     e.target.checked ? setPointe(true) : setPointe(false);
-
     e.target.checked
       ? await updateDoc(docRef, { pointe: true })
       : await updateDoc(docRef, { pointe: false });
@@ -107,6 +106,8 @@ const Modif = (props: any) => {
   };
 
   const onDelete = async () => {
+    await updateDoc(docRef, { date:tps });
+    msg();
     await deleteDoc(docRef);
   };
 
@@ -308,7 +309,7 @@ const Modif = (props: any) => {
             </i>
           </label>
         </form>
-        <p></p>
+        <p>ladate = {ladate}{'    '} temps = {tps}</p>
         <div className="modif-btn">
           <button type="button" className="modif-button" onClick={onDelete}>
             Supprimer l&apos;écriture

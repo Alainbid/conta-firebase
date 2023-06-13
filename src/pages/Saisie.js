@@ -20,7 +20,6 @@ function Saisie() {
 
   const onSubmit = (data) => {
     if (somme != "") {
-      
       data.new = false;
       data.numero="";
       data.somme = somme;
@@ -53,10 +52,15 @@ function Saisie() {
 
 
 
-  const getData = (val) => {
-    setTemps(val);
-    // let w = new Date(val).toLocaleDateString("fr-FR");
-    // console.log("date ", w, val);
+  const getData = (year,month,day) => {
+  // console.log("y m d", year, month, day)
+    let datechoisie = new Date(year, month , day).getTime();
+    let hoy = new Date().getTime();
+   let tx = new Date().toDateString();
+  let hoyoh = new Date(tx).getTime();
+  let datechoisieHeure = datechoisie + (hoy-hoyoh);
+//console.log("date saisie", datechoisieHeure);
+    setTemps(datechoisieHeure);
     document.getElementById("saisie-container").style.display = "revert";
     setNavHidden(false);
   };

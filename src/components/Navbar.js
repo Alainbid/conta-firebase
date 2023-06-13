@@ -6,10 +6,10 @@ const Navbarre = () => {
   return (
     <div className="navbar">
       <div className="navbar_href">
-           
+{/*            
         <NavLink to="/Modif" className="navlk">
           Modif
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/" className="navlk">
           Saisie
         </NavLink>
@@ -27,7 +27,7 @@ const Navbarre = () => {
           Rechercher
         </NavLink>
         {/* <NavLink to="/Test" className="navlk">
-          Test
+          Majour
         </NavLink> */}
         <NavLink to="/Depenses" className="navlk">
           Dépenses
