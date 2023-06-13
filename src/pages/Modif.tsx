@@ -17,7 +17,7 @@ const Modif = (props: any) => {
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
   const [date, setDate] = useState("");
-  const [ladate, setLadate] = useState(0);
+  // const [ladate, setLadate] = useState(0);
   const [showListDepenses, setShowListDepenses] = useState(false);
   const [listPosition, setListPosition] = useState([0, 0]);
   const[tps,setTps] = useState(0);
@@ -43,7 +43,7 @@ const Modif = (props: any) => {
         setMode(docSnap.get("mode"));
         const d = docSnap.get("temps");
         setTps(d);
-        setLadate (docSnap.get("date"));
+        // setLadate (docSnap.get("date"));
         setDate(new Date(d).toLocaleDateString("fr-FR"));
 
       } else {
@@ -118,7 +118,7 @@ const Modif = (props: any) => {
     document.getElementById("modif-msg")!!.style.left = z;
     setTimeout(function () {
       document.getElementById("modif-msg")!!.style.display = "none";
-    }, 2500);
+    }, 2000);
   };
 
   if (props.openModif === "x") return null;
@@ -308,9 +308,7 @@ const Modif = (props: any) => {
               {date}
             </i>
           </label>
-        </form>
-        <p>ladate = {ladate}{'    '} temps = {tps}</p>
-        <div className="modif-btn">
+            <div className="modif-btn">
           <button type="button" className="modif-button" onClick={onDelete}>
             Supprimer l&apos;écriture
           </button>
@@ -321,9 +319,11 @@ const Modif = (props: any) => {
             onClick={props.onCloseModif}
             // onClick={onCancel}
           >
-            Retour
+            Fermer
           </button>
         </div>
+        </form>
+      
       </div>
     </div>
   );

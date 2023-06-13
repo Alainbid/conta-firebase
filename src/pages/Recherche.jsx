@@ -32,6 +32,7 @@ const Recherche = () => {
   const [letotal, setLetotal] = useState(0);
   const [note, setNote] = useState("");
   const [nature, setNature] = useState("");
+  const [benef, setBenef] = useState("");
   const [debut, setDebut] = useState(1400000000000);
   //const [fin] = useState(new Date("2050/12/30").getTime());
   const [fin] = useState(2555580680000);
@@ -62,6 +63,8 @@ const Recherche = () => {
     if (note != "") conditions.push(where("note", "==", note));
 
     if (nature != "") conditions.push(where("nature", "==", nature));
+    
+    if (benef != "") conditions.push(where("benef", "==", benef));
 
     conditions.push(orderBy("date", "desc"));
 
@@ -92,7 +95,7 @@ const Recherche = () => {
 
   useEffect(() => {
     getJournal();
-  }, [debut]);
+  }, [debut,modifLequel]);
 
   const modifBanque = () => {
     let bso = checkBou.current.checked;
@@ -123,12 +126,18 @@ const Recherche = () => {
     e.target.value === 0 ? setSomme(0) : setSomme(e.target.value);
   };
 
-  const modifNote = (e) => {
-    e.target.value === "" ? setNote("") : setNote(e.target.value);
-  };
-
   const modifDepense = (e) => {
     e.target.value === "" ? setNature("") : setNature(e.target.value);
+  };
+
+  const modifBenef = (e) => {
+    console.log("benef", e.target.value);
+    e.target.value === "" ? setBenef("") : setBenef(e.target.value);
+  }
+
+  
+  const modifNote = (e) => {
+    e.target.value === "" ? setNote("") : setNote(e.target.value);
   };
 
   const getData = (year,month,day) => {
@@ -254,18 +263,6 @@ const Recherche = () => {
             </label>
           </div>
 
-          <div className="note-container">
-            <label className="label-saisie">
-              Note{" "}
-              <input
-                className="input-recherche"
-                type="text"
-                id="note"
-                onChange={modifNote}
-              ></input>
-            </label>
-          </div>
-
           <div className="depens-container">
             <label className="label-saisie">
               Depense{" "}
@@ -278,6 +275,29 @@ const Recherche = () => {
             </label>
           </div>
 
+          <div className="benef-container">
+            <label className="label-saisie">
+              Fournisseur{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="benef"
+                onChange={modifBenef}
+              ></input>
+            </label>
+          </div>
+
+          <div className="note-container">
+            <label className="label-saisie">
+              Note{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="note"
+                onChange={modifNote}
+              ></input>
+            </label>
+          </div>
           <div className="debut-container">
             <label className="label-saisie">
               Date début{" "}
