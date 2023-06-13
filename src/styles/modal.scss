@@ -60,13 +60,13 @@
   font-size: 0.7rem;
 
 }
-input{
+.input-modale{
   font-weight: 600;
   padding-left: 10px;
   background: rgb(217, 226, 248);
   font-size: 1.5rem;
 }
-button{
+.button-valid .button-delete{
   margin: 3px;
   padding-left: 5px;
   padding-right: 5px;
@@ -77,7 +77,7 @@ button{
   border-radius: 12px;
  
 }
-button:hover{
+.button-valid:hover .button-delete:hover{
   cursor: pointer;
     background: rgb(165, 188, 220);
     color :rgb(80, 8, 8);

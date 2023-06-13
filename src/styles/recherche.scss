@@ -47,7 +47,6 @@
   padding-right: 31px;
   /* margin-right: 10px; */
   /* padding: 8px; */
-  /* margin: 5px; */
   font-size: 1.2rem;
   color: #4d3413;
   font-weight: 600;
@@ -64,7 +63,13 @@
 
 #thr-Recherche{
   display: none;
+   background-color: #c6a079;
 }
+th:hover{
+  cursor: none;
+ 
+}
+
 th {
   font-weight: 400;
   font-size: 1.2rem;
@@ -82,10 +87,10 @@ td {
   font-family: system-ui;
   background: #090808;
 }
-
-tr  :hover{
-  background-color: rgb(155, 156, 117);
+.tr-ligne:hover{
+  background-color: rgb(54, 43, 28);
 }
+
 .r-total {
   font-size: 1.4rem;
 }
@@ -96,14 +101,24 @@ tr  :hover{
   background-color: #43403d;
 }
 .lancer{
+  border:solid 3px;
+  font-weight: 600;
+  padding:5px;
+  color:black;
   background-color: wheat;
   font-size: 1.4rem;
   margin-left: 2px;
-  border-radius: 10px;
+  border-radius: 20px;
+  border-color: burlywood;
 }
 .annule{
+  border:solid 3px;
+  border-color: burlywood;
+  font-weight: 600;
+  color:black;
   background-color: darksalmon;
   font-size: 1.4rem;
   margin-left: 55px;
-  border-radius: 10px;
+  border-radius: 20px;
+  padding:5px;
 }

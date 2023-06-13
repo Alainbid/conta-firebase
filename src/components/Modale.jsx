@@ -24,7 +24,7 @@ const Modale = (props) => {
           <input
             autoComplete="off"
             type="text"
-            className="input-text"
+            className="input-modal"
             id="in-text"
             defaultValue={props.leQuel}
             onInput={changement}

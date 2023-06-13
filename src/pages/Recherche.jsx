@@ -358,12 +358,12 @@ const Recherche = () => {
           <tbody id="ligne">
             {laListe.map((undoc, index) => {
               return (
-                <tr
+                <tr className="tr-ligne"
                   onClick={(event) => {
                     event.preventDefault();
                     selectionne(undoc);
                   }}
-                  className="tr-ligne"
+                  
                   key={undoc.id}
                   // style={
                   //   isActive === index
