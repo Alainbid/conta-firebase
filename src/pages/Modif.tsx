@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc, deleteDoc} from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./FirebaseFirestore";
 import "../styles/modif.scss";
-import ListeDepenses from "../components/ListeDepenses";
+// import ListeDepenses from "../components/ListeDepenses";
 import PropTypes from "prop-types";
-
 
 const Modif = (props: any) => {
   const docRef = doc(db, "cfbjournal", props.openModif);
   const [somme, setSomme] = useState(0);
   const [banque, setBanque] = useState("");
-  const [nature, setNature] = useState("");
+  const [lanature, setLaNature] = useState("");
   const [benef, setBenef] = useState("");
   const [mode, setMode] = useState("");
   const [note, setNote] = useState("");
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
-  const [date, setDate] = useState("");
-  // const [ladate, setLadate] = useState(0);
-  const [showListDepenses, setShowListDepenses] = useState(false);
-  const [listPosition, setListPosition] = useState([0, 0]);
-  const[tps,setTps] = useState(0);
+  //const [showListDepenses, setShowListDepenses] = useState(false);
+  //const [listPosition] = useState([0, 0]);
+  const [ladate, setLadate] = useState("01/01/2015");
+  // const inputDate = useRef(null);
 
   useEffect(() => {
     getDocument();
@@ -35,17 +33,15 @@ const Modif = (props: any) => {
         console.log("data", docSnap.data());
         setSomme(docSnap.get("somme"));
         setBanque(docSnap.get("banque"));
-        setNature(docSnap.get("nature"));
+        setLaNature(docSnap.get("nature"));
         setBenef(docSnap.get("benef"));
         setNote(docSnap.get("note"));
         setMenage(docSnap.get("menage"));
         setPointe(docSnap.get("pointe"));
         setMode(docSnap.get("mode"));
-        const d = docSnap.get("temps");
-        setTps(d);
-        // setLadate (docSnap.get("date"));
-        setDate(new Date(d).toLocaleDateString("fr-FR"));
-
+        const dd = docSnap.get("temps");
+        setLadate(new Date(dd).toLocaleDateString("fr-FR"));
+        console.log("ladate", ladate);
       } else {
         alert("document inconnu");
       }
@@ -66,8 +62,8 @@ const Modif = (props: any) => {
   };
 
   const modifNature = async (e: any) => {
-    setNature(e);
-    await updateDoc(docRef, { nature: e });
+    setLaNature(e.target.value);
+    await updateDoc(docRef, { nature: e.target.value });
     msg();
   };
 
@@ -105,15 +101,31 @@ const Modif = (props: any) => {
     msg();
   };
 
+  const modifDate = async (e: any) => {
+    let x: string = e.target.value;
+
+    if (x.length === 10) {
+      let an = x.substring(6);
+      let jour = x.substring(0, 2);
+      let mois = x.substring(2, 6);
+      x = an + mois + jour;
+      let dd = new Date(x).getTime();
+      console.log("dd", dd);
+      await updateDoc(docRef, { temps: dd, date: dd });
+      msg();
+    }
+  };
+
   const onDelete = async () => {
-    await updateDoc(docRef, { date:tps });
+    // await updateDoc(docRef, { date:tps });
     msg();
     await deleteDoc(docRef);
   };
 
+  var w = window.innerWidth / 2;
+  var z = w - 258 + "px";
+
   const msg = () => {
-    let w = window.innerWidth / 2;
-    let z = w - 258 + "px";
     document.getElementById("modif-msg")!!.style.display = "flex";
     document.getElementById("modif-msg")!!.style.left = z;
     setTimeout(function () {
@@ -121,27 +133,21 @@ const Modif = (props: any) => {
     }, 2000);
   };
 
+  // const handleClick = (e:any) => {
+  //  e.target.select();
+  // };
+
   if (props.openModif === "x") return null;
 
   //******************************************************* */
   return (
     <div>
-      <ListeDepenses
-        open={showListDepenses}
-        onClose={() => {
-          setShowListDepenses(false);
-        }}
-        posdex={listPosition[0]}
-        posdey={listPosition[1]}
-        onValider={(lequel) => {
-          modifNature(lequel);
-        }}
-      ></ListeDepenses>
       <div>
-        <div className="modif-msg" id="modif-msg" style={{ left: "300px" }}>
+        <div className="modif-msg" id="modif-msg">
           Modification enregistrée
         </div>
         <form
+          style={{ left: z }}
           className="modif-container"
           id="modif-container"
           autoComplete="off"
@@ -178,10 +184,10 @@ const Modif = (props: any) => {
             Dépense
             <input
               className="modif-saisie"
-              onClick={(event) => {
-                setListPosition([event.clientX - 200, event.clientY - 270]);
-                setShowListDepenses(true);
-              }}
+              // onClick={(event) => {
+              //   setListPosition([event.clientX - 200, event.clientY - 270]);
+              //   setShowListDepenses(true);
+              // }}
               onChange={(event) => {
                 {
                   modifNature(event);
@@ -189,7 +195,7 @@ const Modif = (props: any) => {
               }}
               type="text"
               id="nature"
-              value={nature}
+              value={lanature}
             ></input>
           </label>
           <label className="modif-label">
@@ -304,26 +310,34 @@ const Modif = (props: any) => {
 
           <label className="modif-label">
             Ecriture du
-            <i className="modif-saisie" id="date">
-              {date}
-            </i>
+            <input
+              className="modif-saisie"
+              //  oref={inputDate}nClick={ (event) => {handleClick(event)}}
+              onChange={(event) => {
+                {
+                  modifDate(event);
+                }
+              }}
+              // value={ladate}
+              type="text"
+              id="date"
+              placeholder={ladate}
+            ></input>
           </label>
-            <div className="modif-btn">
-          <button type="button" className="modif-button" onClick={onDelete}>
-            Supprimer l&apos;écriture
-          </button>
-          <button
-            type="button"
-            id="btn-cancel"
-            className="modif-button"
-            onClick={props.onCloseModif}
-            // onClick={onCancel}
-          >
-            Fermer
-          </button>
-        </div>
+          <div className="modif-btn">
+            <button type="button" className="modif-button" onClick={onDelete}>
+              Supprimer l&apos;écriture
+            </button>
+            <button
+              type="button"
+              id="btn-cancel"
+              className="modif-button"
+              onClick={props.onCloseModif}
+            >
+              Fermer
+            </button>
+          </div>
         </form>
-      
       </div>
     </div>
   );
