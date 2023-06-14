@@ -1,26 +1,27 @@
 .modif-msg{
   display:none;
-  top: 662px;
+  top: 600px;
   left: 0px;
   position: fixed;
   z-index: 1000;
-  border-radius: 20px;
+  border-radius: 50px;
   font-weight: 600;
   color: #5d362d;
   font-size: 2rem;
   width: 516px;
-  /* display: flex; */
+  height: 200px;
   flex-direction: column;
   align-items: center;
-  background-color: #86837d;
+  background-color: #f0d39a;
+  padding-top: 80px;
 }
 
 .modif-container{
-  top: 60px;
-  left: 28vw;
   position: fixed;
+  // left:30vw  ;
+  top: 60px;
   padding: 30px;
-  width: 531px;
+  width: 530px;
   height: 600px;
   display: flex;
   flex-direction: column;
@@ -58,27 +59,33 @@
   background: #c4b08d;
 }
 
+.modif-date{
+  color:rgb(5, 5, 5);
+  background-color: rgb(228, 221, 234);
+}
 .modif-btn{
   margin-top: 38px;
   background: #86837d;
   border-radius: 20px;
   padding: 11px;
-  /* margin: auto; */
-  WIDTH: 447px;
+  width: 447px;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-evenly;
+
 }
 
-.modif-button{
+.modif-button{  font-weight: 600;
+    font-size: 1.2rem;
+  color:black;
   padding-inline: 12px;
-  font-size: 1.2rem;
+
   border-color: burlywood;
   border-radius: 20px;
   background-color: #86837d;
 }
 
 #btn-cancel{
-  color:#813b17;
+  color:#6d0101;
 }

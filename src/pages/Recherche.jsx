@@ -141,15 +141,13 @@ const Recherche = () => {
   };
 
   const getData = (year,month,day) => {
-    // document.getElementById("navbar").style.display = "none";
-    document.getElementById("thr-Recherche").style.display = "revert";
     document.getElementById("recherche-cont").style.display = "flex";
+    document.getElementById("thr-Recherche").style.display = "revert";
     let val = new Date(year,month,day).getTime();
     // console.log("date debut", val);
     setDebut(val);
-    let w = new Date(val).toLocaleDateString("fr-FR");
-    // console.log("w", w);
-    document.getElementById("d-debut").value = "le " + w;
+    const d = new Date(val).toLocaleDateString("fr-FR");
+    document.getElementById("d-debut").value = "le " + d
   };
 
   // const annuler = () => {
@@ -158,6 +156,9 @@ const Recherche = () => {
   // };
 
   const selectionne = (doc) => {
+    if(document.getElementById("modif-container"))
+    {document.getElementById("modif-container").style.display="flex"}
+    
     setModifLequel(doc.id);
     console.log("undoc", doc.id);
     console.log("undoc modiflequel", modifLequel);
@@ -363,13 +364,7 @@ const Recherche = () => {
                     event.preventDefault();
                     selectionne(undoc);
                   }}
-                  
                   key={undoc.id}
-                  // style={
-                  //   isActive === index
-                  //     ?  { background: "yellow"}
-                  //     : { background: "green" }
-                  // }
                 >
                   <td style={{ width: 2 + "em" }}>{index + 1}</td>
                   <td style={{ width: 6 + "em" }}>{undoc.banque}</td>
