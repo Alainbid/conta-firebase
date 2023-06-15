@@ -25,6 +25,30 @@
   margin-bottom: 20px;
 }
 
+.lab-depuis{
+  padding-top: 20px;
+  border-radius: 50px;
+  margin: auto;
+  width: 538px;
+  background: #43403d;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  flex-direction: row;
+}
+.bt-depuis{
+  margin-bottom: 17px;
+  font-weight: 600;
+  width: 41px;
+  margin-left: 10px;
+  color: red;
+  background: wheat;
+  font-size: 2rem;
+  border: solid 3px;
+  border-radius: 16px;
+  border-color: #7f6060;
+      
+}
 
 
 .bourso-container {
@@ -79,7 +103,7 @@ th {
   font-family: monospace;
 }
 
-td {
+td{
   cursor: pointer;
   height: 2rem;
   font-size: 1.1rem;
@@ -87,7 +111,7 @@ td {
   font-family: system-ui;
   background: #090808;
 }
-.tr-ligne:hover{
+.rech-ligne:hover{
   background-color: rgb(54, 43, 28);
 }
 

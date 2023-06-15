@@ -42,16 +42,12 @@ const Recherche = () => {
   const checkPointe = useRef();
   const checkMenage = useRef();
   const [modifLequel, setModifLequel] = useState("x");
-  const [showNavbar,setShowNavbar] = useState(true);
-
-
-
+  const [showNavbar, setShowNavbar] = useState(true);
 
   const getJournal = async () => {
-    
+
     let conditions = [];
     if (banque !== "all") conditions.push(where("banque", "==", banque));
-
     if (checkPointe.current.checked) {
       conditions.push(where("pointe", "==", pointe));
     }
@@ -59,15 +55,10 @@ const Recherche = () => {
       conditions.push(where("menage", "==", menage));
     }
     if (somme != 0) conditions.push(where("somme", "==", parseFloat(somme)));
-
     if (note != "") conditions.push(where("note", "==", note));
-
     if (nature != "") conditions.push(where("nature", "==", nature));
-    
     if (benef != "") conditions.push(where("benef", "==", benef));
-
     conditions.push(orderBy("date", "desc"));
-
     conditions.push(endAt(debut));
     conditions.push(startAt(fin)); //31/12/2050
     conditions.push(limit(100));
@@ -76,16 +67,21 @@ const Recherche = () => {
 
     let lequery = query(collection(db, "cfbjournal"), ...conditions);
     try {
+      
       var total = 0;
       const data = await getDocs(lequery);
+      console.log("data", data.docs.length);
+      if(data.docs.length > 0 ){
+        // document.getElementsByClassName("rech-ligne").style.color="white";
       data.forEach((element) => {
         total += element.data().somme;
       });
       total = parseInt(total * 100);
       setLetotal(parseFloat(total / 100));
       setLaListe(data.docs.map((ledoc) => ({ ...ledoc.data(), id: ledoc.id })));
-
-      // console.log("data", data.docs);
+    }
+     
+      
     } catch (error) {
       console.log("Erreur du query ", alert(error));
     }
@@ -94,8 +90,8 @@ const Recherche = () => {
   //******************USEEFFECT ***************************/
 
   useEffect(() => {
-    getJournal();
-  }, [debut,modifLequel]);
+   getJournal();
+  }, [ modifLequel]);
 
   const modifBanque = () => {
     let bso = checkBou.current.checked;
@@ -116,16 +112,12 @@ const Recherche = () => {
   const modifMenage = (e) => {
     e.target.checked ? setMenage(true) : setMenage(false);
   };
-
   const modifPointe = (e) => {
     !e.target.checked ? setPointe(true) : setPointe(false);
   };
-
   const modifSomme = (e) => {
-    //console.log("e", e.target.value);
     e.target.value === 0 ? setSomme(0) : setSomme(e.target.value);
   };
-
   const modifDepense = (e) => {
     e.target.value === "" ? setNature("") : setNature(e.target.value);
   };
@@ -133,62 +125,46 @@ const Recherche = () => {
   const modifBenef = (e) => {
     console.log("benef", e.target.value);
     e.target.value === "" ? setBenef("") : setBenef(e.target.value);
-  }
-
-  
+  };
   const modifNote = (e) => {
     e.target.value === "" ? setNote("") : setNote(e.target.value);
   };
-
-  const getData = (year,month,day) => {
+  const getData = (year, month, day) => {
     document.getElementById("recherche-cont").style.display = "flex";
     document.getElementById("thr-Recherche").style.display = "revert";
-    let val = new Date(year,month,day).getTime();
-    // console.log("date debut", val);
+    let val = new Date(year, month, day).getTime();
     setDebut(val);
     const d = new Date(val).toLocaleDateString("fr-FR");
-    document.getElementById("d-debut").value = "le " + d
+    document.getElementById("d-debut").value = "le " + d;
   };
 
-  // const annuler = () => {
-  //   if(!showCalendar && !showNavbar){window.location.reload(true)}
-    
-  // };
-
   const selectionne = (doc) => {
-    if(document.getElementById("modif-container"))
-    {document.getElementById("modif-container").style.display="flex"}
-    
+    if (document.getElementById("modif-container")) {
+      document.getElementById("modif-container").style.display = "flex";
+    }
     setModifLequel(doc.id);
     console.log("undoc", doc.id);
     console.log("undoc modiflequel", modifLequel);
   };
 
   //****************************************************** */
-  return (
-    <div> 
-    {showNavbar && (
-      <Navbarre  id='navbar' ></Navbarre>
-    )}
-        {showCalendar && (
-          <Calendar id='calencar'   sendData={getData}    />
-        )}
-      
-    
+
+ return (
+    <div>
+      {showNavbar && <Navbarre id="navbar"></Navbarre>}
+      {showCalendar && <Calendar id="calencar" sendData={getData}></Calendar> }
 
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
 
-
       <Modif
-        openModif= {modifLequel}
-        
+        openModif={modifLequel}
         onCloseModif={() => setModifLequel("x")}
       ></Modif>
 
       <div id="depuis-container">
-        <label>
-          Rechercher depuis quelle date 
-          <button
+        <label className="lab-depuis">
+          Rechercher depuis quelle date
+          <button className="bt-depuis"
             onClick={() => {
               depuisLe();
             }}
@@ -312,13 +288,19 @@ const Recherche = () => {
         </form>
         <div className="div-span">
           <span className="span-annule">
-            <button className="lancer" onClick={getJournal}>
+            <button className="lancer" onClick={() => {
+              getJournal();
+              // document.getElementsByClassName("tb-pointage").style.display='flex';
+              }}>
               lancer la recherche
             </button>
-            <button className="annule" onClick= {() => {
-              console.log('clic',showCalendar,showNavbar);
-              if(showCalendar && !showNavbar)window.location.reload(true);
-            }}>
+            <button
+              className="annule"
+              onClick={() => {
+                console.log("clic", showCalendar, showNavbar);
+                if (showCalendar && !showNavbar) window.location.reload(true);
+              }}
+            >
               Annuler
             </button>
           </span>
@@ -356,10 +338,14 @@ const Recherche = () => {
               <th style={{ width: 12 + "em" }}>Note</th>
             </tr>
           </thead>
-          <tbody id="ligne">
+          <tbody className="recherche-ligne">
+            {console.log("laListe", laListe.length)}
             {laListe.map((undoc, index) => {
+              
+              {/* if(undoc.Date > 1) { */}
               return (
-                <tr className="tr-ligne"
+                <tr
+                  className="rech-ligne"
                   onClick={(event) => {
                     event.preventDefault();
                     selectionne(undoc);
@@ -393,8 +379,11 @@ const Recherche = () => {
                   <td style={{ width: 4 + "em" }}>{undoc.mode} </td>
                   <td style={{ width: 12 + "em" }}>{undoc.note}</td>
                 </tr>
-              );
+              )
+             
             })}
+            
+            
           </tbody>
         </table>
       </div>
