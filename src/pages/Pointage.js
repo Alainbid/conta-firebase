@@ -38,9 +38,13 @@ const Pointage = () => {
     let lequery = query(collection(db, "cfbjournal"), ...conditions);
     try {
       const data = await getDocs(lequery);
+      console.log("data",data.docs);
       var total = 0;
       data.forEach((element) => {
+
         total += element.data().somme;
+        
+
       });
       total = parseInt(total * 100);
       setLeTotal(parseFloat(total / 100).toLocaleString("de-DE"));
@@ -66,7 +70,10 @@ const Pointage = () => {
   };
 
   const conformer = (vam) => {
-    if (vam) return vam.toFixed(2);
+    console.log("vam",vam);
+    //if (vam != undefined) var x = vam.toFixed(2);
+    // console.log(x)
+    return vam;
   };
 
   const modifBanque = (e) => {

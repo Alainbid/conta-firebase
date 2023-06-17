@@ -34,8 +34,8 @@ const Recherche = () => {
   const [nature, setNature] = useState("");
   const [benef, setBenef] = useState("");
   const [debut, setDebut] = useState(1400000000000);
-  //const [fin] = useState(new Date("2050/12/30").getTime());
-  const [fin] = useState(2555580680000);
+  const [fin, setFin] = useState(new Date().getTime());
+  // const [fin] = useState(2555580680000);
   const [showCalendar, setShowCalendar] = useState(false);
   const checkBou = useRef();
   const checkBva = useRef();
@@ -43,9 +43,9 @@ const Recherche = () => {
   const checkMenage = useRef();
   const [modifLequel, setModifLequel] = useState("x");
   const [showNavbar, setShowNavbar] = useState(true);
+ 
 
   const getJournal = async () => {
-
     let conditions = [];
     if (banque !== "all") conditions.push(where("banque", "==", banque));
     if (checkPointe.current.checked) {
@@ -67,21 +67,20 @@ const Recherche = () => {
 
     let lequery = query(collection(db, "cfbjournal"), ...conditions);
     try {
-      
       var total = 0;
       const data = await getDocs(lequery);
       console.log("data", data.docs.length);
-      if(data.docs.length > 0 ){
+      if (data.docs.length > 0) {
         // document.getElementsByClassName("rech-ligne").style.color="white";
-      data.forEach((element) => {
-        total += element.data().somme;
-      });
-      total = parseInt(total * 100);
-      setLetotal(parseFloat(total / 100));
-      setLaListe(data.docs.map((ledoc) => ({ ...ledoc.data(), id: ledoc.id })));
-    }
-     
-      
+        data.forEach((element) => {
+          total += element.data().somme;
+        });
+        total = parseInt(total * 100);
+        setLetotal(parseFloat(total / 100));
+        setLaListe(
+          data.docs.map((ledoc) => ({ ...ledoc.data(), id: ledoc.id }))
+        );
+      }
     } catch (error) {
       console.log("Erreur du query ", alert(error));
     }
@@ -90,8 +89,8 @@ const Recherche = () => {
   //******************USEEFFECT ***************************/
 
   useEffect(() => {
-   getJournal();
-  }, [ modifLequel]);
+    getJournal();
+  }, [modifLequel]);
 
   const modifBanque = () => {
     let bso = checkBou.current.checked;
@@ -106,7 +105,6 @@ const Recherche = () => {
   const depuisLe = () => {
     setShowNavbar(false);
     setShowCalendar(true);
-    document.getElementById("depuis-container").style.display = "none";
   };
 
   const modifMenage = (e) => {
@@ -132,10 +130,26 @@ const Recherche = () => {
   const getData = (year, month, day) => {
     document.getElementById("recherche-cont").style.display = "flex";
     document.getElementById("thr-Recherche").style.display = "revert";
+    document.getElementById("recherche-ligne").style.display = "revert";
     let val = new Date(year, month, day).getTime();
-    setDebut(val);
     const d = new Date(val).toLocaleDateString("fr-FR");
-    document.getElementById("d-debut").value = "le " + d;
+    // console.log("d", d);
+    setDebut(val);
+    document.getElementById("d-debut").value = d;
+  };
+
+  const modifFin = (e) => {
+    let x = e.target.value;
+    if (x.length === 10) {
+      let an = x.substring(6);
+      let jour = x.substring(0, 2);
+      let mois = x.substring(2, 6);
+      x = an + mois + jour;
+      let dd = new Date(x).getTime();
+      dd += (23.5*60*60*1000);
+      // console.log("dd", dd);
+      setFin(dd);
+    }
   };
 
   const selectionne = (doc) => {
@@ -149,10 +163,10 @@ const Recherche = () => {
 
   //****************************************************** */
 
- return (
+  return (
     <div>
       {showNavbar && <Navbarre id="navbar"></Navbarre>}
-      {showCalendar && <Calendar id="calencar" sendData={getData}></Calendar> }
+      {showCalendar && <Calendar id="calencar" sendData={getData}></Calendar>}
 
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
 
@@ -161,7 +175,7 @@ const Recherche = () => {
         onCloseModif={() => setModifLequel("x")}
       ></Modif>
 
-      <div id="depuis-container">
+      {/* <div id="depuis-container">
         <label className="lab-depuis">
           Rechercher depuis quelle date
           <button className="bt-depuis"
@@ -173,7 +187,7 @@ const Recherche = () => {
             ?
           </button>
         </label>
-      </div>
+      </div> */}
 
       <div id="recherche-cont">
         <div>
@@ -277,21 +291,41 @@ const Recherche = () => {
           </div>
           <div className="debut-container">
             <label className="label-saisie">
-              Date début{" "}
+              Depuis le{" "}
               <input
                 className="input-recherche"
                 type="text"
                 id="d-debut"
+                onClick={depuisLe}
+              ></input>
+            </label>
+          </div>
+          <div className="fin-container">
+            <label className="label-saisie">
+              jusqu&apos;au{" "}
+              <input
+                className="input-recherche"
+                type="text"
+                id="d-fin"
+                onChange={modifFin}
+                //     onClick={() => {
+                //
+                //   depuisLe();
+                // }}
+                placeholder={new Date(fin).toLocaleDateString("fr-FR")}
               ></input>
             </label>
           </div>
         </form>
         <div className="div-span">
           <span className="span-annule">
-            <button className="lancer" onClick={() => {
-              getJournal();
-              // document.getElementsByClassName("tb-pointage").style.display='flex';
-              }}>
+            <button
+              className="lancer"
+              onClick={() => {
+                getJournal();
+                // document.getElementsByClassName("tb-pointage").style.display='flex';
+              }}
+            >
               lancer la recherche
             </button>
             <button
@@ -338,11 +372,12 @@ const Recherche = () => {
               <th style={{ width: 12 + "em" }}>Note</th>
             </tr>
           </thead>
-          <tbody className="recherche-ligne">
+          <tbody id="recherche-ligne">
             {console.log("laListe", laListe.length)}
             {laListe.map((undoc, index) => {
-              
-              {/* if(undoc.Date > 1) { */}
+              {
+                /* if(undoc.Date > 1) { */
+              }
               return (
                 <tr
                   className="rech-ligne"
@@ -379,11 +414,8 @@ const Recherche = () => {
                   <td style={{ width: 4 + "em" }}>{undoc.mode} </td>
                   <td style={{ width: 12 + "em" }}>{undoc.note}</td>
                 </tr>
-              )
-             
+              );
             })}
-            
-            
           </tbody>
         </table>
       </div>

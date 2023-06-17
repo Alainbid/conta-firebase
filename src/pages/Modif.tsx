@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const Modif = (props: any) => {
   const docRef = doc(db, "cfbjournal", props.openModif);
-  const [somme, setSomme] = useState(0);
+  const [somme, setSomme] = useState("");
   const [banque, setBanque] = useState("");
   const [lanature, setLaNature] = useState("");
   const [benef, setBenef] = useState("");
@@ -56,8 +56,8 @@ const Modif = (props: any) => {
   };
 
   const modifSomme = async (e: any) => {
-    setSomme(e.target.value);
-    await updateDoc(docRef, { somme: e.target.value });
+ setSomme(e.target.value);
+    await updateDoc(docRef, { somme:parseFloat(e.target.value) });
     msg();
   };
 
@@ -175,7 +175,7 @@ const Modif = (props: any) => {
                   modifSomme(event);
                 }
               }}
-              type="number"
+              type="text"
               id="somme"
               value={somme}
             ></input>
