@@ -6,6 +6,7 @@ import "../styles/modif.scss";
 import PropTypes from "prop-types";
 
 const Modif = (props: any) => {
+  // const docRef = doc(db, "cfbjournal", '01SVI8Q2zjnO4eCfU4C6');
   const docRef = doc(db, "cfbjournal", props.openModif);
   const [somme, setSomme] = useState("");
   const [banque, setBanque] = useState("");
@@ -15,8 +16,6 @@ const Modif = (props: any) => {
   const [note, setNote] = useState("");
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
-  //const [showListDepenses, setShowListDepenses] = useState(false);
-  //const [listPosition] = useState([0, 0]);
   const [ladate, setLadate] = useState("01/01/2015");
   // const inputDate = useRef(null);
 
@@ -26,11 +25,11 @@ const Modif = (props: any) => {
 
   const getDocument = async () => {
     if (props.openModif != "x") {
-      console.log("getdoc", props.openModif);
+     // console.log("getdoc", props.openModif);
 
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("data", docSnap.data());
+        //console.log("data", docSnap.data());
         setSomme(docSnap.get("somme"));
         setBanque(docSnap.get("banque"));
         setLaNature(docSnap.get("nature"));
@@ -41,7 +40,7 @@ const Modif = (props: any) => {
         setMode(docSnap.get("mode"));
         const dd = docSnap.get("temps");
         setLadate(new Date(dd).toLocaleDateString("fr-FR"));
-        console.log("ladate", ladate);
+        //console.log("ladate", ladate);
       } else {
         alert("document inconnu");
       }
@@ -123,21 +122,19 @@ const Modif = (props: any) => {
   };
 
   var w = window.innerWidth / 2;
-  var z = w - 258 + "px";
+  var posLeft = w - 260 + "px";
 
   const msg = () => {
     document.getElementById("modif-msg")!!.style.display = "flex";
-    document.getElementById("modif-msg")!!.style.left = z;
+    document.getElementById("modif-msg")!!.style.left = posLeft;
+    
     setTimeout(function () {
       document.getElementById("modif-msg")!!.style.display = "none";
     }, 2000);
+    
   };
 
-  // const handleClick = (e:any) => {
-  //  e.target.select();
-  // };
-
-  if (props.openModif === "x") return null;
+  if (props.openModif === "x" ) return null;
 
   //******************************************************* */
   return (
@@ -147,7 +144,7 @@ const Modif = (props: any) => {
           Modification enregistrée
         </div>
         <form
-          style={{ left: z }}
+          style={{ left: posLeft }}
           className="modif-container"
           id="modif-container"
           autoComplete="off"

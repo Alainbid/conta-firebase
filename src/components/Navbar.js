@@ -6,10 +6,10 @@ const Navbarre = () => {
   return (
     <div className="navbar">
       <div className="navbar_href">
-{/*            
-        <NavLink to="/Modif" className="navlk">
-          Modif
-        </NavLink> */}
+           
+        <NavLink to="/ListeDepenses" className="navlk">
+          ListeDepenses
+        </NavLink>
         <NavLink to="/" className="navlk">
           Saisie
         </NavLink>

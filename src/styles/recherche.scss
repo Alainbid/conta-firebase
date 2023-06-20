@@ -11,16 +11,17 @@
   /* font-weight: 500; */
   justify-content: center;
 }
+
 #recherche-cont {
   display:flex;
   margin: auto;
   font-size: 1.3rem;
-  width: 489px;
+  width: 490px;
   background: #43403d;
  flex-direction: column;
   align-items: center;
   border-radius: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 44px;
 }
 
 .lab-depuis{
@@ -79,6 +80,8 @@
   color: #060606;
   border-radius: 10px;
   border: none;
+  font-weight: bold;
+  padding-left: 10px;
 }
 
 

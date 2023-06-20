@@ -47,7 +47,7 @@ const Recherche = () => {
 
   const getJournal = async () => {
     let conditions = [];
-    if (banque !== "all") conditions.push(where("banque", "==", banque));
+    if (banque !== "all") {conditions.push(where("banque",  "==", banque));}
     if (checkPointe.current.checked) {
       conditions.push(where("pointe", "==", pointe));
     }
@@ -61,7 +61,7 @@ const Recherche = () => {
     conditions.push(orderBy("date", "desc"));
     conditions.push(endAt(debut));
     conditions.push(startAt(fin)); //31/12/2050
-    conditions.push(limit(100));
+    conditions.push(limit(500));
 
     //************  QUERY ******************************/
 
@@ -69,9 +69,8 @@ const Recherche = () => {
     try {
       var total = 0;
       const data = await getDocs(lequery);
-      console.log("data", data.docs.length);
+      //console.log("data", data.docs.length);
       if (data.docs.length > 0) {
-        // document.getElementsByClassName("rech-ligne").style.color="white";
         data.forEach((element) => {
           total += element.data().somme;
         });
@@ -157,8 +156,7 @@ const Recherche = () => {
       document.getElementById("modif-container").style.display = "flex";
     }
     setModifLequel(doc.id);
-    console.log("undoc", doc.id);
-    console.log("undoc modiflequel", modifLequel);
+   // console.log("undoc", doc.id);
   };
 
   //****************************************************** */
@@ -174,20 +172,6 @@ const Recherche = () => {
         openModif={modifLequel}
         onCloseModif={() => setModifLequel("x")}
       ></Modif>
-
-      {/* <div id="depuis-container">
-        <label className="lab-depuis">
-          Rechercher depuis quelle date
-          <button className="bt-depuis"
-            onClick={() => {
-              depuisLe();
-            }}
-          >
-            {" "}
-            ?
-          </button>
-        </label>
-      </div> */}
 
       <div id="recherche-cont">
         <div>
@@ -297,6 +281,7 @@ const Recherche = () => {
                 type="text"
                 id="d-debut"
                 onClick={depuisLe}
+               style={{ fontWeight:'bold'}}
               ></input>
             </label>
           </div>
@@ -308,10 +293,7 @@ const Recherche = () => {
                 type="text"
                 id="d-fin"
                 onChange={modifFin}
-                //     onClick={() => {
-                //
-                //   depuisLe();
-                // }}
+            
                 placeholder={new Date(fin).toLocaleDateString("fr-FR")}
               ></input>
             </label>
@@ -373,7 +355,7 @@ const Recherche = () => {
             </tr>
           </thead>
           <tbody id="recherche-ligne">
-            {console.log("laListe", laListe.length)}
+            {/* {console.log("laListe", laListe.length)} */}
             {laListe.map((undoc, index) => {
               {
                 /* if(undoc.Date > 1) { */

@@ -14,6 +14,9 @@
 
 .elegant-calencar {
   z-index: 1000;
+  position: absolute;
+  top: 126px;
+  left: calc(50vw  - 200px);
   background: #c8d4cb;
   width: 20em;
   height: 20em;
@@ -30,7 +33,7 @@
 
 .clearfix {
   display: inline-flex;
-  margin-top: 1.5rem;
+  margin-top: 6px;
 }
 
 .pre-button0,
@@ -69,7 +72,7 @@
 
 
  #calendar{
-  margin-top: 3rem;
+  margin-top: 1px;
   display: inline-block;
   background-color: #c8d4cb;
  }
@@ -77,10 +80,12 @@
 
 #calendar tr {
     background: #c8d4cb;
-     height: 1.5em;
+    // height: 1.5em;
      
  }
 #calendar th{
+  width:50px;
+
   background: #c8d4cb;
   color:black
 }
@@ -88,14 +93,15 @@
  .tr-cal {
   
   font-weight: 600;
-  font-size: 1.5rem;
+  // font-size: 1.5rem;
   background: #c8d4cb;
   color: #023812;
-  padding-bottom: 1rem;
+  // padding-bottom: 1rem;
  }
 
 
  .tb-cal td{
+  height: 50px;
      width: 14%;
      border-radius:0;
      cursor: pointer;
@@ -108,9 +114,9 @@
  }
 
  tbody td:active {
-     -webkit-transform: scale(0.7);
-     -ms-transform: scale(0.7);
-     transform: scale(0.7);
+     -webkit-transform: scale(1.2);
+     -ms-transform: scale(1.2);
+     transform: scale(1.2);
  }
 
  #selected{
@@ -130,6 +136,12 @@
  }
 
 #disabled {
+  
   cursor: default;
   background: #c8d4cb;
+}
+
+#idselected{
+  background-color: #9a3434;
+  border-radius: 50%;
 }

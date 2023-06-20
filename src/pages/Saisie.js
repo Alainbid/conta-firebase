@@ -1,6 +1,7 @@
-import React, {  useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbarre from "../components/Navbar";
 import Calendar from "../components/Calendar.tsx";
+import ListeDepenses from "../components/ListeDepenses";
 import "../styles/app.scss";
 import "../styles/saisie.scss";
 
@@ -17,11 +18,18 @@ function Saisie() {
   const [temps, setTemps] = useState(0);
   const [somme, setSomme] = useState("");
   const [navHidden, setNavHidden] = useState(true);
+  const [listDepPosition, setListDepPosition] = useState([0, 0]);
+  const [showListdep, setShowListdep] = useState(false);
+  const [natureDepense, setNatureDepense] = useState("");
+
+  useEffect(() => {
+    choixDepense();
+  }, [natureDepense]);
 
   const onSubmit = (data) => {
     if (somme != "") {
       data.new = false;
-      data.numero="";
+      data.numero = "";
       data.somme = somme;
       data.mode = mode;
       data.banque = banque;
@@ -29,7 +37,7 @@ function Saisie() {
       data.temps = temps;
       data.pointe = false;
       data.date = temps;
-      console.log("data", data);
+      data.nature = natureDepense;
       addDoc(journalCollectionRef, data);
     }
     annuler();
@@ -50,50 +58,62 @@ function Saisie() {
     setSomme(parseFloat(e.target.value));
   };
 
-
-
-  const getData = (year,month,day) => {
-  // console.log("y m d", year, month, day)
-    let datechoisie = new Date(year, month , day).getTime();
+  const getData = (year, month, day) => {
+    // console.log("y m d", year, month, day)
+    let datechoisie = new Date(year, month, day).getTime();
     let hoy = new Date().getTime();
-   let tx = new Date().toDateString();
-  let hoyoh = new Date(tx).getTime();
-  let datechoisieHeure = datechoisie + (hoy-hoyoh);
-//console.log("date saisie", datechoisieHeure);
+    let tx = new Date().toDateString();
+    let hoyoh = new Date(tx).getTime();
+    let datechoisieHeure = datechoisie + (hoy - hoyoh);
+    //console.log("date saisie", datechoisieHeure);
     setTemps(datechoisieHeure);
     document.getElementById("saisie-container").style.display = "revert";
     setNavHidden(false);
   };
 
   const annuler = () => {
-   setSomme("");
-    document.getElementById("somme").value="";
-    document.getElementById("nature").value="";
-    document.getElementById("benef").value="";
-    document.getElementById("note").value="";
+    setSomme("");
+    document.getElementById("somme").value = "";
+    document.getElementById("nature").value = "";
+    document.getElementById("benef").value = "";
+    document.getElementById("note").value = "";
     setBanque("BOURSO");
     setMode("Visa");
     setMenage(true);
-       setNavHidden(true);
-
+    setNavHidden(true);
     document.getElementById("saisie-container").style.display = "none";
     document.getElementById("calencar").style.display = "flex";
- 
   };
 
-
+  const choixDepense = () => {
+    // console.log("nature",natureDepense);
+    document.getElementById("nature").value = natureDepense;
+    document.getElementById("nature").innerHTML = natureDepense;
+  };
 
   return (
     <div id="app">
-      {navHidden ?<Navbarre></Navbarre> : null}
-   
+      {navHidden ? <Navbarre></Navbarre> : null}
 
       <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
-         <Calendar
+      <Calendar
         quelMotif={"Nouvelle écriture du :"}
         sendData={getData}
         finMotif={" Validez "}
       ></Calendar>
+      <ListeDepenses
+        open={showListdep}
+        onValider={(x) => {
+          setNatureDepense(x);
+          // console.log("x",x);
+          // document.getElementById("nature").innerHTML = natureDepense;
+        }}
+        onClose={() => {
+          setShowListdep(false);
+        }}
+        posdex={listDepPosition[0]}
+        posdey={listDepPosition[1]}
+      ></ListeDepenses>
       <div id="saisie-container">
         <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="fdset-saisie" {...register("banque")}>
@@ -188,9 +208,16 @@ function Saisie() {
               Dépense
               <input
                 className="input-saisie"
-                {...register("nature")}
                 type="text"
-                id="nature"                
+                id="nature"
+                onClick={(event) => {
+                  event.preventDefault();
+
+                  // console.log(" x ", event.clientX, "   y = ", event.clientY);
+                  setListDepPosition([event.clientX, event.clientY]);
+                  setShowListdep(true);
+                  
+                }}
               ></input>
             </label>
 
@@ -229,9 +256,10 @@ function Saisie() {
                 onChange={modifMenage}
               ></input>
             </label>
-           
           </div>
- <p className="date-saisie">le{" : "} {new Date(temps).toLocaleDateString()} </p>
+          <p className="date-saisie">
+            le{" : "} {new Date(temps).toLocaleDateString()}{" "}
+          </p>
           <span className="btn-fin">
             {" "}
             <button type="submit" className="btn btn-success">
