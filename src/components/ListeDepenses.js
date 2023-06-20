@@ -7,7 +7,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 const ListeDepenses = (props) => {
   const [Depenses, setDepenses] = useState([]);
   const depensesCollectionRef = collection(db, "depenses");
-
+  const liste = ['a','b','c'];
   useEffect(() => {
     getDepenses();
   }, []);
@@ -22,19 +22,23 @@ const ListeDepenses = (props) => {
   return (
     <div>
       <div
-        className="depense-container"
+        className="listdep-container"
         style={{ left: props.posdex + "px", top: props.posdey + "px" }}
       >
-        <div className="depense-table">
+
+        <div className="listdep-table">
           <p></p>
           {Depenses.map((item, index) => {
             return (
               <ul
-                className="depense-ligne"
+                className="listdep-ligne"
                 key={item.nature}
-                onClick={() => {
-                  props.onClose();
+
+                onClick={(event) => {
+                  // console.log("item.nature",item.nature)
+                  event.preventDefault();
                   props.onValider(item.nature);
+                  props.onClose();
                 }}
               >
                 {/* pour mettre un 0 si de 1 à 9 */}
@@ -49,12 +53,12 @@ const ListeDepenses = (props) => {
   );
 };
 ListeDepenses.propTypes = {
-  // listPosition: PropTypes.object,
   posdex: PropTypes.number,
   posdey: PropTypes.number,
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  onValider: PropTypes.func,
+  onValider:PropTypes.func,
+  
 };
 
 export default ListeDepenses;

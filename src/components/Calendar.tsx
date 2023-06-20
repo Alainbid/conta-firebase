@@ -108,7 +108,6 @@ const voirCalendar = (open:boolean) => {
     document.getElementById('calencar')!!.style.display="none";
   };
 
-
   return (
     <div id="dbut" >
       
