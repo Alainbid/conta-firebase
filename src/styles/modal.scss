@@ -1,13 +1,11 @@
-
-
 .modal-overlay {
   z-index: 1100;
-  position: fixed;
-  top: 212px;
-  left: 36vw;
+  position: absolute;
+  top: 242px;
+  left: calc(50vw - 13px);
   width: 504px;
   height: 266px;
-  background: rgb(125, 131, 154);
+  background: rgb(125, 131, 154, 0.25);
   display: flex;
   padding: 8px;
   border: solid 1px white;
@@ -16,70 +14,66 @@
   justify-content: center;
 }
 
-.modal-content {
+.modal-lecontent {
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 90%;
   border-radius: 16px;
   background: rgb(64, 70, 94);
   align-items: center;
   height: 95%;
-  position: fixed;
-  top:220px;
-  left:26vw;
 }
-.modal-tittle{
-  padding:16px;
-  background: rgb(64,70,94);
+.modal-tittle {
+  padding: 16px;
+  background: rgb(64, 70, 94);
 }
 .modal-header,
 .modal-footer {
   color: wheat;
   background: rgb(64, 70, 94);
- 
 }
-.modal-header{
-  
+.modal-header {
   padding: 11px;
-
 }
 
-.modal-body { 
+.modal-lebody {
   margin-bottom: 20px;
   width: 95%;
   /* display: flex; */
   background: rgb(64, 70, 94);
   /* padding: 6px; */
-  height: 87px;
+  height: 67px;
   /* flex-direction: row; */
   /* justify-content: space-between; */
   align-items: center;
   color: wheat;
 }
-.modal-footer{
-  font-size: 0.7rem;
 
-}
-.input-modale{
+.input-lamodale {
+  border-radius: 15px;
+  color: black;
   font-weight: 600;
   padding-left: 10px;
   background: rgb(217, 226, 248);
   font-size: 1.5rem;
 }
-.button-valid .button-delete{
+.lamodal-footer {
+  font-size: 1.3rem;
+  background: #40465e;
+}
+.button-modalBtn {
   margin: 3px;
   padding-left: 5px;
   padding-right: 5px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   background: rgb(217, 226, 248);
-  color: black;
+  color: #40465e;
   border-radius: 12px;
- 
 }
-.button-valid:hover .button-delete:hover{
+.button-valid:hover .button-delete:hover {
   cursor: pointer;
-    background: rgb(165, 188, 220);
-    color :rgb(80, 8, 8);
-    font-size: 1rem;
-  }
+  background: rgb(165, 188, 220);
+  color: rgb(80, 8, 8);
+  font-size: 1rem;
+}

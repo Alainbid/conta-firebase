@@ -4,7 +4,6 @@ import Calendar from "../components/Calendar.tsx";
 import ListeDepenses from "../components/ListeDepenses";
 import "../styles/app.scss";
 import "../styles/saisie.scss";
-
 import { db } from "./FirebaseFirestore";
 import { useForm } from "react-hook-form";
 import { addDoc, collection } from "firebase/firestore";
@@ -59,7 +58,6 @@ function Saisie() {
   };
 
   const getData = (year, month, day) => {
-    // console.log("y m d", year, month, day)
     let datechoisie = new Date(year, month, day).getTime();
     let hoy = new Date().getTime();
     let tx = new Date().toDateString();
@@ -200,13 +198,13 @@ function Saisie() {
                 onChange={modifSomme}
                 type="text"
                 id="somme"
-                // required={true}
               ></input>
             </label>
 
             <label className="label-saisie">
               Dépense
               <input
+               autoComplete="off"
                 className="input-saisie"
                 type="text"
                 id="nature"
@@ -224,6 +222,7 @@ function Saisie() {
             <label className="label-saisie">
               Fournisseur
               <input
+              autoComplete="off"
                 className="input-saisie"
                 {...register("benef")}
                 type="text"

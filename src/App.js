@@ -1,15 +1,13 @@
-import React from 'react';
- import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignInPage";
 import Pointage from "./pages/Pointage";
 import NotFound from "./pages/NotFoundPage";
 import Depenses from "./pages/Depenses";
-import Benefs from "./pages/Beneficiaires";
-import Saisie  from "./pages/Saisie";
-// import Majour from './pages/majour';
-//  import Test from './pages/Test';
- import Recherche from "./pages/Recherche"
- import ListeDepenses from './components/ListeDepenses';
+import Fournis from "./pages/Fournisseurs";
+import Saisie from "./pages/Saisie";
+import Recherche from "./pages/Recherche";
+import ListeDepenses from "./components/ListeDepenses";
 
 const App = () => {
   return (
@@ -19,7 +17,7 @@ const App = () => {
         <Route path="/SignInPage" element={<SignIn />}></Route>
         <Route path="/Pointage" element={<Pointage />}></Route>
         <Route path="/Depenses" element={<Depenses />}></Route>
-        <Route path="/Beneficiaires" element={<Benefs />}></Route>
+        <Route path="/Fournisseurs" element={<Fournis />}></Route>
         <Route path="/Saisie" element={<Saisie />}></Route>
         <Route path="/ListeDepenses" element={<ListeDepenses />}></Route>
         <Route path="/Rechercher" element={<Recherche />}></Route>
@@ -29,6 +27,5 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
 
 export default App;

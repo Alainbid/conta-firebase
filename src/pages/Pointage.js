@@ -139,17 +139,17 @@ const Pointage = () => {
           <tbody id="ligne" className="tbdy-pointage">
             {laListe.map((undoc, index) => {
               return (
-                <tr className="tr-ligne" key={undoc.id}>
-                  <td style={{ width: 2 + "em" }}>{index + 1}</td>
-                  <td style={{ width: 6 + "em" }}>{undoc.banque}</td>
-                  <td style={{ width: 11 + "em" }}>
+                <tr id="tr-pointage" key={undoc.id}>
+                  <td id='td-l-point'  style={{ width: 2 + "em" }}>{index + 1}</td>
+                  <td id='td-l-point'  style={{ width: 6 + "em" }}>{undoc.banque}</td>
+                  <td id='td-l-point'  style={{ width: 11 + "em" }}>
                     {new Date(undoc.temps).toLocaleDateString()}
                   </td>
-                  <td style={{ width: 2.5 + "em" }}>
+                  <td id='td-l-point'  style={{ width: 2.5 + "em" }}>
                     {undoc.menage === true ? " M" : " "}{" "}
                   </td>
 
-                  <td
+                  <td id='td-l-point' 
                     style={{
                       width: 10 + "em",
                       textAlign: "right",
@@ -158,8 +158,8 @@ const Pointage = () => {
                   >
                     {conformer(undoc.somme)}
                   </td>
-                  <td style={{ width: 1 + "em" }}></td>
-                  <td
+                  <td id='td-l-point'  style={{ width: 1 + "em" }}></td>
+                  <td id='td-l-pointeur' 
                     onDoubleClick={(e) => {
                       e.preventDefault();
                       updatePointage(undoc.id);
@@ -172,18 +172,18 @@ const Pointage = () => {
                   >
                     {undoc.pointe === false ? "?" : "P"}
                   </td>
-                  <td style={{ width: 1 + "em" }}></td>
-                  <td style={{ width: 14 + "em" }}>{undoc.benef} </td>
-                  <td style={{ width: 16 + "em" }}>{undoc.nature} </td>
-                  <td style={{ width: 4 + "em" }}>{undoc.mode} </td>
-                  <td style={{ width: 12 + "em" }}>{undoc.note}</td>
+                  <td id='td-l-point'  style={{ width: 1 + "em" }}></td>
+                  <td id='td-l-point'  style={{ width: 14 + "em" }}>{undoc.benef} </td>
+                  <td id='td-l-point'  style={{ width: 16 + "em" }}>{undoc.nature} </td>
+                  <td id='td-l-point'  style={{ width: 4 + "em" }}>{undoc.mode} </td>
+                  <td id='td-l-point'  style={{ width: 12 + "em" }}>{undoc.note}</td>
                 </tr>
               );
             })}
             <tr>
-              <td style={{ width: 2 + "em" }}></td>
-              <td style={{ width: 6 + "em" }}></td>
-              <td
+              <td id='td-l-point'  style={{ width: 2 + "em" }}></td>
+              <td id='td-l-point'  style={{ width: 6 + "em" }}></td>
+              <td id='td-l-point' 
                 style={{
                   width: 7 + "em",
                   textAlign: "right",
@@ -192,8 +192,8 @@ const Pointage = () => {
               >
                 TOTAL
               </td>
-              <td style={{ width: 2.5 + "em" }}> </td>
-              <td
+              <td id='td-l-point' style={{ width: 2.5 + "em" }}> </td>
+              <td id='td-l-point'
                 style={{
                   width: 12 + "em",
                   color: "red",

@@ -4,18 +4,13 @@
   flex-direction: column;
   align-items: center;
 }
-
 #saisie-container  {
   width: 700px;
   background: rgb(134, 131, 125);
   display:none;
   margin:auto;
- 
   border-radius: 60px;
 }
-
-
-
 .form-container  {
   background: rgb(134, 131, 125);
     width: 588px;
@@ -23,7 +18,6 @@
     flex-direction: column;
     margin: auto;
 }
-
 .fdset-saisie{
   margin-top: 10px;
   background: #c4b08d;
@@ -36,28 +30,19 @@
   color: #4d3413;
   font-weight: 600;
 }
-
 .date-saisie{
   font-weight: 600;
   font-size: 1.2rem;
   color: #4d3413;
   background: #86837d;
 }
-
-
-
-
 .mode-container, .banque-container , .budget-container ,.btn-fin {
   background: #86837d;
   padding: 10px;
-  /* margin-left: 8px; */
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  
 }
-
-
 .detail-container{
   margin-top: 20px;
   align-self: center;
@@ -66,7 +51,6 @@
   align-items: flex-end;
   background: #86837d;
 }
-
 .label-saisie{
   background: #86837d;
   font-size: 1.2rem;
@@ -75,6 +59,7 @@
 }
 .input-saisie   {  
   font-size: 1.5rem;
+  font-weight: 600;
   border-radius: 20px;
   border: none;
   padding: 10px;
@@ -83,8 +68,6 @@
   margin-bottom: 5px;
   margin-left: 5px;
 }
-
-
 .btn-fin{
   display: flex;
   flex-direction: row;

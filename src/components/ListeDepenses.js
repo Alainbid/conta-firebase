@@ -7,7 +7,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 const ListeDepenses = (props) => {
   const [Depenses, setDepenses] = useState([]);
   const depensesCollectionRef = collection(db, "depenses");
-  const liste = ['a','b','c'];
+  
   useEffect(() => {
     getDepenses();
   }, []);

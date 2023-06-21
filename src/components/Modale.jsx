@@ -14,30 +14,30 @@ const Modale = (props) => {
   return (
     // <div className="modal-overlay" style={top= {posdex}}>
     <div className="modal-overlay" >
-      <div className="modal-content">
+      <div className="modal-lecontent">
         <div className="modal-header">
           <h4 className="modal-tittle"> Modifier la liste </h4>
         </div>
 
-        <div className="modal-body">
-          Sélection
+        <div className="modal-lebody">
+          Sélection{'  '}
           <input
             autoComplete="off"
             type="text"
-            className="input-modal"
+            className="input-lamodale"
             id="in-text"
             defaultValue={props.leQuel}
             onInput={changement}
           />
         </div>
-        <div className="modal-footer">
-          <button className="button-annuler" onClick={props.onClose}>
+        <div className="lamodal-footer">
+          <button className="button-modalBtn" onClick={props.onClose}>
             Annuler
           </button>
 
           <button
             type="submit"
-            className="button-valid"
+            className="button-modalBtn"
             onClick={(event) => {
               event.preventDefault();
               setLeText(document.getElementById("in-text").value);
@@ -48,7 +48,7 @@ const Modale = (props) => {
             {leTexte !== "" ? "Valider" : "Modifier"}
           </button>
           <button
-            className="button-delete"
+            className="button-modalBtn"
             onClick={(event) => {
               event.preventDefault();
               const x = document.getElementById("in-text").value;
@@ -59,7 +59,7 @@ const Modale = (props) => {
             Supprimer
           </button>
           <button
-            className="button-ajouter"
+            className="button-modalBtn"
             onClick={(event) => {
               event.preventDefault();
               const x = document.getElementById("in-text").value;
