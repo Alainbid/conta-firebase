@@ -17,13 +17,14 @@ function Saisie() {
   const [temps, setTemps] = useState(0);
   const [somme, setSomme] = useState("");
   const [navHidden, setNavHidden] = useState(true);
-  const [listDepPosition, setListDepPosition] = useState([0, 0]);
-  const [showListdep, setShowListdep] = useState(false);
+  const [listDepPosition, setListDepBenPosition] = useState([0, 0]);
+  const [showListdepbenef, setShowListdepbenef] = useState("");
   const [natureDepense, setNatureDepense] = useState("");
+  const [quiBenef, setQuiBenef] = useState("");
 
   useEffect(() => {
-    choixDepense();
-  }, [natureDepense]);
+    choixDepBenef();
+  }, [natureDepense,quiBenef]);
 
   const onSubmit = (data) => {
     if (somme != "") {
@@ -37,6 +38,7 @@ function Saisie() {
       data.pointe = false;
       data.date = temps;
       data.nature = natureDepense;
+      data.benef = quiBenef;
       addDoc(journalCollectionRef, data);
     }
     annuler();
@@ -83,10 +85,11 @@ function Saisie() {
     document.getElementById("calencar").style.display = "flex";
   };
 
-  const choixDepense = () => {
-    // console.log("nature",natureDepense);
+  const choixDepBenef = () => {
     document.getElementById("nature").value = natureDepense;
-    document.getElementById("nature").innerHTML = natureDepense;
+    //document.getElementById("nature").innerHTML = natureDepense;
+    document.getElementById("benef").value = quiBenef;
+   // document.getElementById("benef").innerHTML = quiBenef;
   };
 
   return (
@@ -100,14 +103,13 @@ function Saisie() {
         finMotif={" Validez "}
       ></Calendar>
       <ListeDepenses
-        open={showListdep}
-        onValider={(x) => {
-          setNatureDepense(x);
+        open={showListdepbenef}
+        onValider={(x,qui) => {
+          (qui === "benef") ? setQuiBenef(x) : setNatureDepense(x) ;
           // console.log("x",x);
-          // document.getElementById("nature").innerHTML = natureDepense;
         }}
         onClose={() => {
-          setShowListdep(false);
+          setShowListdepbenef('');
         }}
         posdex={listDepPosition[0]}
         posdey={listDepPosition[1]}
@@ -210,11 +212,8 @@ function Saisie() {
                 id="nature"
                 onClick={(event) => {
                   event.preventDefault();
-
-                  // console.log(" x ", event.clientX, "   y = ", event.clientY);
-                  setListDepPosition([event.clientX, event.clientY]);
-                  setShowListdep(true);
-                  
+                  setListDepBenPosition([event.clientX, event.clientY-200]);
+                  setShowListdepbenef('depense');
                 }}
               ></input>
             </label>
@@ -224,10 +223,13 @@ function Saisie() {
               <input
               autoComplete="off"
                 className="input-saisie"
-                {...register("benef")}
                 type="text"
                 id="benef"
-                // required={true}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setListDepBenPosition([event.clientX, event.clientY-250]);
+                  setShowListdepbenef('benef');
+                }}
               ></input>
             </label>
 

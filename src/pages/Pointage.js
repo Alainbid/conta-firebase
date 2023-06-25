@@ -14,16 +14,10 @@ import {
   where,
   updateDoc,
 } from "firebase/firestore";
-// import { Button } from "react-bootstrap";
-
-//console.log("journalCollectionRef.", journalCollectionRef.type);
 
 const Pointage = () => {
-  //var journalCollectionRef = collection(db, "cfbjournal");
   const [laListe, setLaListe] = useState([{}]);
   const [banque, setBanque] = useState("");
-
-  // const [isActive] = useState(null|0);
   const [letotal, setLeTotal] = useState(0.0);
   useEffect(() => {
     getJournal();
@@ -41,14 +35,10 @@ const Pointage = () => {
       console.log("data",data.docs);
       var total = 0;
       data.forEach((element) => {
-
         total += element.data().somme;
-        
-
       });
       total = parseInt(total * 100);
       setLeTotal(parseFloat(total / 100).toLocaleString("de-DE"));
-
       setLaListe(data.docs.map((ledoc) => ({ ...ledoc.data(), id: ledoc.id })));
     } catch (error) {
       console.log(alert(error));
@@ -70,9 +60,7 @@ const Pointage = () => {
   };
 
   const conformer = (vam) => {
-    console.log("vam",vam);
-    //if (vam != undefined) var x = vam.toFixed(2);
-    // console.log(x)
+   // console.log("vam",vam);
     return vam;
   };
 
@@ -96,7 +84,6 @@ const Pointage = () => {
             type="radio"
              onChange={modifBanque}
              checked={banque === "BOURSO"}
-           
           ></input>
           BOURSO
         </label>

@@ -5,20 +5,29 @@ import { db } from "../pages/FirebaseFirestore";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 const ListeDepenses = (props) => {
-  const [Depenses, setDepenses] = useState([]);
-  const depensesCollectionRef = collection(db, "depenses");
-  
+  const [liste, setListe] = useState([]);
+
+
   useEffect(() => {
-    getDepenses();
-  }, []);
+   getDepBenef();
+  }, [props.open]);
 
-  const getDepenses = async () => {
-    const data = await getDocs(query(depensesCollectionRef, orderBy("nature")));
-    setDepenses(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    //  console.log(data.docs);
-  };
+  const getDepBenef = async () => {
+    if (props.open === 'benef') {
+     // console.log('props-- open',props.open);
+      const data = await getDocs(query(collection(db, "benef"), orderBy("qui")));
+    setListe(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-  if (!props.open) return null;
+    }
+    else {  const data = await getDocs(query(collection(db, "depenses"), orderBy("nature")));
+    setListe(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    // console.log("liste",liste);
+  }
+
+
+   if(props.open === '')   return null;
+  
   return (
     <div>
       <div
@@ -27,35 +36,39 @@ const ListeDepenses = (props) => {
       >
 
         <div className="listdep-table">
-          <p></p>
-          {Depenses.map((item, index) => {
-            return (
+          <p>liste</p>
+          {
+            liste.map((item, index) => {
+             return(
               <ul
                 className="listdep-ligne"
-                key={item.nature}
-
+                key={item.id}
                 onClick={(event) => {
-                  // console.log("item.nature",item.nature)
+                  var x = ''
                   event.preventDefault();
-                  props.onValider(item.nature);
+                  props.open === 'benef' ?  x =item.qui : x = item.nature
+                  props.onValider(x,props.open);
                   props.onClose();
                 }}
               >
                 {/* pour mettre un 0 si de 1 à 9 */}
                 {index < 9 ? "0" + (index + 1).toString(10) : index + 1}{" "}
-                {item.nature}
+                {props.open === 'benef' ? item.qui : item.nature}
               </ul>
-            );
-          })}
+             );
+            })
+          }
+        </div>
         </div>
       </div>
-    </div>
+    
   );
-};
+}
+
 ListeDepenses.propTypes = {
   posdex: PropTypes.number,
   posdey: PropTypes.number,
-  open: PropTypes.bool,
+  open: PropTypes.string,
   onClose: PropTypes.func,
   onValider:PropTypes.func,
   
