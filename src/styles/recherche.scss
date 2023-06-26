@@ -129,25 +129,19 @@ td{
   margin-bottom: 20px;
   background-color: #43403d;
 }
-.lancer{
+
+#btn-rc{
   border:solid 3px;
   font-weight: 600;
   padding:5px;
   color:black;
   background-color: wheat;
   font-size: 1.4rem;
-  margin-left: 2px;
+  margin-left: 27px;
   border-radius: 20px;
   border-color: burlywood;
 }
-.annule{
-  border:solid 3px;
-  border-color: burlywood;
-  font-weight: 600;
-  color:black;
-  background-color: darksalmon;
-  font-size: 1.4rem;
-  margin-left: 55px;
-  border-radius: 20px;
-  padding:5px;
+#btn-rc:hover{
+  font-size: 1.5rem;
+  background-color: white;
 }
