@@ -14,7 +14,6 @@ const ListeDepenses = (props) => {
 
   const getDepBenef = async () => {
     if (props.open === 'benef') {
-     // console.log('props-- open',props.open);
       const data = await getDocs(query(collection(db, "benef"), orderBy("qui")));
     setListe(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 

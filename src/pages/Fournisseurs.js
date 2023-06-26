@@ -21,7 +21,6 @@ const SnapshotBenefs = () => {
   const [showModal, setShowModal] = useState(false);
   const [idItem, setIdItem] = useState("");
   const [modalPosition, setModalPosition] = useState([0, 0]);
-
   const benefsCollectionRef = collection(db, "benef");
 
   useEffect(() => {
@@ -55,9 +54,7 @@ const SnapshotBenefs = () => {
 
   const ajouter = async (newItem) => {
     // console.log("item ajouté  ", newItem);
-    await addDoc(collection(db, "benef"), {
-      qui: newItem,
-    });
+    await addDoc(collection(db, "benef"), {qui: newItem,});
     getBenefs();
     setShowModal(false);
   };
@@ -72,20 +69,14 @@ const SnapshotBenefs = () => {
           posdex={modalPosition[0]}
           posdey={modalPosition[1]}
           leQuel={quelBenef}
-          onValider={(x) => {
-            modifier(x);
-          }}
-          onAjouter={(newItem) => {
-            ajouter(newItem);
-          }}
-          onDelete={() => {
-            supprimer(idItem);
-          }}
+          onValider={(x) => {modifier(x);}}
+          onAjouter={(newItem) => {ajouter(newItem); }}
+          onDelete={() => {supprimer(idItem); }}
         ></Modale>
       
 
       <div className="depense-container">
-        <ul className="f-li">Types de dépenses</ul>
+        <ul className="f-li">Liste des fournisseurs</ul>
 
         <div className="depense-table">
           <p></p>

@@ -58,6 +58,7 @@
   font-weight: 600;
 }
 .input-saisie   {  
+ 
   font-size: 1.5rem;
   font-weight: 600;
   border-radius: 20px;
@@ -74,6 +75,34 @@
   justify-content: space-between;
   margin-left: 221px;
 }
+#btn-s-valider{
+  border: solid 2px #473a2c;
+  border-radius: 26px;
+  font-weight: 600;
+  color: black;
+  background: #a2b6a4;
+  font-size: 1.3rem;
+  padding: 8px;
+}
+#btn-s-valider:hover{
+  color:green;
+  background-color: whitesmoke;
+}
+#btn-s-annuler{
+  border: solid 2px #473a2c;
+  border-radius: 26px;
+  font-weight: 600;
+  color: black;
+  background: #c4b08d;
+  font-size: 1.3rem;
+  padding: 8px;
+}
+
+#btn-s-annuler:hover{
+  color:red;
+  background-color: whitesmoke;
+}
+
 
 
 

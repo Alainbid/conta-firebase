@@ -87,9 +87,7 @@ function Saisie() {
 
   const choixDepBenef = () => {
     document.getElementById("nature").value = natureDepense;
-    //document.getElementById("nature").innerHTML = natureDepense;
     document.getElementById("benef").value = quiBenef;
-   // document.getElementById("benef").innerHTML = quiBenef;
   };
 
   return (
@@ -195,6 +193,7 @@ function Saisie() {
             <label className="label-saisie">
               Montant
               <input
+              autoComplete="off"
                 className="input-saisie"
                 {...register("somme")}
                 onChange={modifSomme}
@@ -206,7 +205,7 @@ function Saisie() {
             <label className="label-saisie">
               Dépense
               <input
-               autoComplete="off"
+                autoComplete="off"
                 className="input-saisie"
                 type="text"
                 id="nature"
@@ -236,6 +235,7 @@ function Saisie() {
             <label className="label-saisie">
               Note
               <input
+              autoComplete="off"
                 className="input-saisie"
                 {...register("note")}
                 type="text"
@@ -263,10 +263,10 @@ function Saisie() {
           </p>
           <span className="btn-fin">
             {" "}
-            <button type="submit" className="btn btn-success">
+            <button type="submit" id="btn-s-valider" >
               Valider
             </button>
-            <button onClick={annuler} className="btn btn-warning">
+            <button onClick={annuler} id="btn-s-annuler">
               Annuler
             </button>
           </span>

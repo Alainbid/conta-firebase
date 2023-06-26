@@ -104,6 +104,7 @@ const Recherche = () => {
   const depuisLe = () => {
     setShowNavbar(false);
     setShowCalendar(true);
+    document.getElementById('d-debut').style.backgroundColor='white';
   };
 
   const modifMenage = (e) => {
@@ -277,11 +278,11 @@ const Recherche = () => {
             <label className="label-saisie">
               Depuis le{" "}
               <input
+                autoComplete="off"
                 className="input-recherche"
                 type="text"
                 id="d-debut"
                 onClick={depuisLe}
-               style={{ fontWeight:'bold'}}
               ></input>
             </label>
           </div>
@@ -302,6 +303,7 @@ const Recherche = () => {
         <div className="div-span">
           <span className="span-annule">
             <button
+              id="btn-rc"
               className="lancer"
               onClick={() => {
                 getJournal();
@@ -310,7 +312,9 @@ const Recherche = () => {
             >
               lancer la recherche
             </button>
+            
             <button
+            id="btn-rc"
               className="annule"
               onClick={() => {
                 console.log("clic", showCalendar, showNavbar);
