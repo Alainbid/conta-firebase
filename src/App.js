@@ -8,6 +8,7 @@ import Fournis from "./pages/Fournisseurs";
 import Saisie from "./pages/Saisie";
 import Recherche from "./pages/Recherche";
 import ListeDepenses from "./components/ListeDepenses";
+import  Test from './pages/Test'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/Saisie" element={<Saisie />}></Route>
         <Route path="/ListeDepenses" element={<ListeDepenses />}></Route>
         <Route path="/Rechercher" element={<Recherche />}></Route>
+        <Route path="/Test" element={<Test />}></Route>
 
         <Route path="*" element={<NotFound />}></Route>
       </Routes>

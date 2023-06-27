@@ -17,7 +17,6 @@ const Modif = (props: any) => {
   const [menage, setMenage] = useState(true);
   const [pointe, setPointe] = useState(false);
   const [ladate, setLadate] = useState("01/01/2015");
-  // const inputDate = useRef(null);
 
   useEffect(() => {
     getDocument();
@@ -116,7 +115,6 @@ const Modif = (props: any) => {
   };
 
   const onDelete = async () => {
-    // await updateDoc(docRef, { date:tps });
     msg();
     await deleteDoc(docRef);
   };
@@ -181,10 +179,6 @@ const Modif = (props: any) => {
             Dépense
             <input
               className="modif-saisie"
-              // onClick={(event) => {
-              //   setListPosition([event.clientX - 200, event.clientY - 270]);
-              //   setShowListDepenses(true);
-              // }}
               onChange={(event) => {
                 {
                   modifNature(event);
@@ -309,13 +303,11 @@ const Modif = (props: any) => {
             Ecriture du
             <input
               className="modif-saisie"
-              //  oref={inputDate}nClick={ (event) => {handleClick(event)}}
               onChange={(event) => {
                 {
                   modifDate(event);
                 }
               }}
-              // value={ladate}
               type="text"
               id="date"
               placeholder={ladate}

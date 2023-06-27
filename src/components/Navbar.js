@@ -27,7 +27,7 @@ const Navbarre = () => {
           Rechercher
         </NavLink>
         {/* <NavLink to="/Test" className="navlk">
-          Majour
+          Test
         </NavLink> */}
         <NavLink to="/Depenses" className="navlk">
           Dépenses

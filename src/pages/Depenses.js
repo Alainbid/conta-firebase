@@ -20,7 +20,6 @@ const SnapshotDepenses = () => {
   const [showModal, setShowModal] = useState(false);
   const [idItem, setIdItem] = useState("");
   const [modalPosition, setModalPosition] = useState([0, 0]);
-
   const depensesCollectionRef = collection(db, "depenses");
 
   useEffect(() => {

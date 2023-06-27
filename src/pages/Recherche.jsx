@@ -4,7 +4,7 @@ import "../styles/recherche.scss";
 import Navbarre from "../components/Navbar";
 import { db } from "./FirebaseFirestore";
 import Calendar from "../components/Calendar.tsx";
-import Modif from "../pages/Modif.tsx";
+import ModifEcriture from "./ModifEcriture";
 
 import {
   // doc,
@@ -169,10 +169,10 @@ const Recherche = () => {
 
       <p className="h2-Recherche">Recherche d&apos;écritures </p>
 
-      <Modif
+      <ModifEcriture
         openModif={modifLequel}
         onCloseModif={() => setModifLequel("x")}
-      ></Modif>
+      ></ModifEcriture>
 
       <div id="recherche-cont">
         <div>

@@ -95,6 +95,7 @@ function Saisie() {
       {navHidden ? <Navbarre></Navbarre> : null}
 
       <h1 id="h1-saisie">Saisie d&apos;écritures</h1>
+      <div ><i  id="saisie-choix">Choisir une date</i></div>
       <Calendar
         quelMotif={"Nouvelle écriture du :"}
         sendData={getData}

@@ -1,30 +1,26 @@
 #btn-valid {
-  margin:auto;
-  
+  margin: auto;
 }
 .h2-Recherche {
   display: flex;
-  /* margin: auto; */
   font-size: 2rem;
   background: #28272d;
-  /* color: red; */
-  /* font-weight: 500; */
   justify-content: center;
 }
 
 #recherche-cont {
-  display:flex;
+  display: flex;
   margin: auto;
   font-size: 1.3rem;
   width: 490px;
   background: #43403d;
- flex-direction: column;
+  flex-direction: column;
   align-items: center;
   border-radius: 20px;
   margin-bottom: 44px;
 }
 
-.lab-depuis{
+.lab-depuis {
   padding-top: 20px;
   border-radius: 50px;
   margin: auto;
@@ -35,7 +31,7 @@
   justify-content: center;
   flex-direction: row;
 }
-.bt-depuis{
+.bt-depuis {
   margin-bottom: 17px;
   font-weight: 600;
   width: 41px;
@@ -46,36 +42,30 @@
   border: solid 3px;
   border-radius: 16px;
   border-color: #7f6060;
-      
 }
-
-
 .bourso-container {
   padding: 10px;
   font-size: 1.3rem;
   background: #43403d;
 }
 .recherche-form {
-    /* margin-right: 20px; */
-    width: 100%;
-    background-color: #86837d;
-    display: flex;
-    margin-Top: 10px;
-    margin-Bottom: 20px;
-    flex-Direction: column;
-    align-Items: flex-end;
+  width: 100%;
+  background-color: #86837d;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: flex-end;
 }
-.label-saisie{
+.label-saisie {
   padding-top: 8px;
   padding-right: 31px;
-  /* margin-right: 10px; */
-  /* padding: 8px; */
   font-size: 1.2rem;
   color: #4d3413;
   font-weight: 600;
   padding-bottom: 10px;
 }
-.input-recherche{
+.input-recherche {
   background: wheat;
   color: #060606;
   border-radius: 10px;
@@ -83,20 +73,16 @@
   font-weight: bold;
   padding-left: 10px;
 }
-
-
-
-#thr-Recherche{
+#thr-Recherche {
   display: none;
-   background-color: #c6a079;
+  background-color: #c6a079;
 }
-#recherche-ligne{
+#recherche-ligne {
   display: none;
 }
 
-th:hover{
+th:hover {
   cursor: none;
- 
 }
 
 th {
@@ -108,15 +94,15 @@ th {
   font-family: monospace;
 }
 
-td{
+td {
   cursor: pointer;
   height: 2rem;
   font-size: 1.1rem;
   color: #fde6cb;
   font-family: system-ui;
-  background: #090808;
+  background: black;
 }
-.rech-ligne:hover{
+.rech-ligne:hover {
   background-color: rgb(54, 43, 28);
 }
 
@@ -124,24 +110,25 @@ td{
   font-size: 1.4rem;
 }
 
-.div-span , .span-annule{
+.div-span,
+.span-annule {
   margin-top: 10px;
   margin-bottom: 20px;
   background-color: #43403d;
 }
 
-#btn-rc{
-  border:solid 3px;
+#btn-rc {
+  border: solid 3px;
   font-weight: 600;
-  padding:5px;
-  color:black;
+  padding: 5px;
+  color: black;
   background-color: wheat;
   font-size: 1.4rem;
   margin-left: 27px;
   border-radius: 20px;
   border-color: burlywood;
 }
-#btn-rc:hover{
+#btn-rc:hover {
   font-size: 1.5rem;
   background-color: white;
 }

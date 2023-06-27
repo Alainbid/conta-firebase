@@ -12,8 +12,6 @@
 }
 .tb-pointage{
   margin :auto;
-  // margin-left: 100px;
-  // margin-right: 100px;
   min-width: 1110px;
 }
 
@@ -27,20 +25,15 @@
 
 .r-total{
   font-size: 1.4rem;
-
 }
 #tr-pointage:nth-child(even) {
   background: #3b3939
 }
 
 #td-l-point{
-
   cursor:none;
   background-color: rgb(34, 32, 29);
 }
-
-  
-
 #td-p-pointage:hover{
   background-color: rgb(34, 71, 51);
    cursor: pointer;
