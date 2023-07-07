@@ -51,7 +51,7 @@ const Pointage = () => {
 
     if (docSnap.exists()) {
       //majour du champ pointe sur true
-      await updateDoc(docRef, { pointe: true });
+      await updateDoc(docRef, { pointe: false });
       console.log("pointé", id);
       getJournal();
     } else {
@@ -61,7 +61,8 @@ const Pointage = () => {
 
   const conformer = (vam) => {
    // console.log("vam",vam);
-    return vam;
+   if(vam === undefined) return null;
+    return vam.toFixed(2);
   };
 
   const modifBanque = (e) => {
@@ -102,7 +103,7 @@ const Pointage = () => {
       </div>
 
       <i className="pt-total" style={{ textJustify: "center" }}>
-        Pour pointer faire : Double-click sur le &quot;?&quot; de la colonne P
+        Pour pointer faire : Double-click sur le &quot;?&quot; de la colonne Montant
       </i>
 
       <div>
@@ -127,30 +128,32 @@ const Pointage = () => {
             {laListe.map((undoc, index) => {
               return (
                 <tr id="tr-pointage" key={undoc.id}>
-                  <td id='td-l-point'  style={{ width: 2 + "em" }}>{index + 1}</td>
-                  <td id='td-l-point'  style={{ width: 6 + "em" }}>{undoc.banque}</td>
-                  <td id='td-l-point'  style={{ width: 11 + "em" }}>
+                  <td id='td-l-point'  style={{ width: 2 + "em",background: "#69c88210" }}>{index + 1}</td>
+                  <td id='td-l-point'  style={{ width: 6 + "em",background: "#69c88210" }}>{undoc.banque}</td>
+                  <td id='td-l-point'  style={{ width: 11 + "em",background: "#69c88210" }}>
                     {new Date(undoc.temps).toLocaleDateString()}
                   </td>
-                  <td id='td-l-point'  style={{ width: 2.5 + "em" }}>
+                  <td id='td-l-point'  style={{ width: 2.5 + "em",background: "#69c88210" }}>
                     {undoc.menage === true ? " M" : " "}{" "}
                   </td>
 
-                  <td id='td-l-point' 
+                  <td id='td-l-pointeur' 
+                  onDoubleClick={(e) => {
+
+                      e.preventDefault();
+                      updatePointage(undoc.id);
+                    }}
                     style={{
                       width: 10 + "em",
                       textAlign: "right",
                       color: undoc.somme < 0 ? "red" : "green",
+                      background: "#69c88210"
                     }}
                   >
                     {conformer(undoc.somme)}
                   </td>
-                  <td id='td-l-point'  style={{ width: 1 + "em" }}></td>
-                  <td id='td-l-pointeur' 
-                    onDoubleClick={(e) => {
-                      e.preventDefault();
-                      updatePointage(undoc.id);
-                    }}
+                  <td id='td-l-point'  style={{ width: 1 + "em" ,background: "#69c88210"}}></td>
+                  <td id='td-l-point' 
                     style={{
                       width: 3 + "em",
                       textAlign: "center",
@@ -159,11 +162,11 @@ const Pointage = () => {
                   >
                     {undoc.pointe === false ? "?" : "P"}
                   </td>
-                  <td id='td-l-point'  style={{ width: 1 + "em" }}></td>
-                  <td id='td-l-point'  style={{ width: 14 + "em" }}>{undoc.benef} </td>
-                  <td id='td-l-point'  style={{ width: 16 + "em" }}>{undoc.nature} </td>
-                  <td id='td-l-point'  style={{ width: 4 + "em" }}>{undoc.mode} </td>
-                  <td id='td-l-point'  style={{ width: 12 + "em" }}>{undoc.note}</td>
+                  <td id='td-l-point'  style={{ width: 1 + "em" ,background: "#69c88210"}}></td>
+                  <td id='td-l-point'  style={{ width: 14 + "em",background: "#69c88210" }}>{undoc.benef} </td>
+                  <td id='td-l-point'  style={{ width: 16 + "em",background: "#69c88210" }}>{undoc.nature} </td>
+                  <td id='td-l-point'  style={{ width: 4 + "em" ,background: "#69c88210"}}>{undoc.mode} </td>
+                  <td id='td-l-point'  style={{ width: 12 + "em",background: "#69c88210" }}>{undoc.note}</td>
                 </tr>
               );
             })}
