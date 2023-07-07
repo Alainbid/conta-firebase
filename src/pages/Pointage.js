@@ -51,7 +51,7 @@ const Pointage = () => {
 
     if (docSnap.exists()) {
       //majour du champ pointe sur true
-      await updateDoc(docRef, { pointe: false });
+      await updateDoc(docRef, { pointe: true });
       console.log("pointé", id);
       getJournal();
     } else {
